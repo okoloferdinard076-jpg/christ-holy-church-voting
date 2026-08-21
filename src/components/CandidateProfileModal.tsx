@@ -99,7 +99,7 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
       id="candidate-profile-backdrop"
     >
       <div
-        className="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col relative"
+        className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col relative"
         id="candidate-profile-modal"
       >
         {/* Close Button */}
@@ -110,7 +110,7 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Hero Portrait Container (Blank by default) */}
+        {/* Hero Portrait Container */}
         <div className="relative aspect-16/10 bg-slate-900 overflow-hidden flex items-center justify-center">
           {candidate.image && candidate.image.trim() ? (
             <img
@@ -126,7 +126,7 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
                 </span>
               </div>
               <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                Official Ambassador Candidate
+                Youth Member & Chorister
               </span>
             </div>
           )}
@@ -151,40 +151,40 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
         {/* Body Content */}
         <div className="p-6 space-y-5">
           {/* Approved Votes Banner */}
-          <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 flex items-center justify-between">
+          <div className="bg-blue-50 dark:bg-blue-950/40 rounded-xl p-4 border border-blue-100 dark:border-blue-800/60 flex items-center justify-between">
             <div>
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Official Approved Votes
               </span>
-              <div className="text-2xl font-black text-blue-950">
+              <div className="text-2xl font-black text-blue-950 dark:text-amber-400">
                 {votes.toLocaleString()}{' '}
-                <span className="text-xs font-semibold text-slate-500">votes counted</span>
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">votes counted</span>
               </div>
             </div>
-            <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
               <CheckCircle2 className="w-6 h-6" />
             </div>
           </div>
 
           {/* Biography */}
           <div className="space-y-2">
-            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Ambassadorial Candidate Profile
+            <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+              Contestant Bio & Ministry Profile
             </h4>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               {candidate.biography}
             </p>
           </div>
 
           {/* Social Share in Profile */}
-          <div className="pt-3 border-t border-slate-100 space-y-2">
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                <Share2 className="w-3.5 h-3.5 text-blue-900" />
+              <span className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Share2 className="w-3.5 h-3.5 text-blue-900 dark:text-amber-400" />
                 Share Candidate Profile
               </span>
               {copied && (
-                <span className="text-xs font-bold text-emerald-600 flex items-center gap-1">
+                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                   <Check className="w-3.5 h-3.5" />
                   Link copied!
                 </span>
@@ -195,18 +195,18 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
               <button
                 onClick={handleWhatsAppShare}
                 id={`modal-share-wa-${candidate.slug}`}
-                className="min-w-0 py-2 px-1.5 sm:px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold text-[10px] sm:text-xs flex items-center justify-center gap-1 sm:gap-2 cursor-pointer transition-colors"
+                className="min-w-0 py-2 px-1.5 sm:px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold text-[10px] sm:text-xs flex items-center justify-center gap-1 sm:gap-2 cursor-pointer transition-colors"
               >
-                <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
+                <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span className="truncate">WhatsApp</span>
               </button>
 
               <button
                 onClick={handleTwitterShare}
                 id={`modal-share-tw-${candidate.slug}`}
-                className="min-w-0 py-2 px-1.5 sm:px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 font-bold text-[10px] sm:text-xs flex items-center justify-center gap-1 sm:gap-2 cursor-pointer transition-colors"
+                className="min-w-0 py-2 px-1.5 sm:px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-[10px] sm:text-xs flex items-center justify-center gap-1 sm:gap-2 cursor-pointer transition-colors"
               >
-                <Twitter className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-700 shrink-0" />
+                <Twitter className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-700 dark:text-slate-300 shrink-0" />
                 <span className="truncate">X / Post</span>
               </button>
 
@@ -216,7 +216,7 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
                 className={`min-w-0 py-2 px-1.5 sm:px-3 rounded-xl border font-bold text-[10px] sm:text-xs flex items-center justify-center gap-1 sm:gap-2 cursor-pointer transition-all ${
                   copied
                     ? 'bg-emerald-600 text-white border-emerald-600'
-                    : 'bg-blue-50 hover:bg-blue-100 text-blue-900 border-blue-200'
+                    : 'bg-blue-50 hover:bg-blue-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-blue-900 dark:text-blue-300 border-blue-200 dark:border-slate-700'
                 }`}
               >
                 {copied ? (
@@ -226,7 +226,7 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-800 shrink-0" />
+                    <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-800 dark:text-amber-400 shrink-0" />
                     <span className="truncate">Copy Link</span>
                   </>
                 )}
@@ -235,10 +235,10 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
           </div>
 
           {/* Action */}
-          <div className="pt-3 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-3">
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-3">
             <button
               onClick={onClose}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs hover:bg-slate-50 cursor-pointer text-center"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-center"
             >
               Close
             </button>
@@ -247,9 +247,9 @@ export const CandidateProfileModal: React.FC<CandidateProfileModalProps> = ({
                 onClose();
                 onVote(candidate);
               }}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs tracking-wide shadow-md flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-950 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-slate-950 font-bold text-xs tracking-wide shadow-md flex items-center justify-center gap-1.5 cursor-pointer"
             >
-              <Vote className="w-4 h-4 text-amber-400 shrink-0" />
+              <Vote className="w-4 h-4 text-amber-400 dark:text-slate-950 shrink-0" />
               <span>Vote for {candidate.name.split(' ')[0]}</span>
             </button>
           </div>

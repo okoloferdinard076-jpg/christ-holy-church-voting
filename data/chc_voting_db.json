@@ -5,10 +5,10 @@
       "name": "Executive Admin",
       "email": "medicreceptor@gmail.com",
       "phone": "09017311644",
-      "passwordHash": "$2b$10$lCIq7dzcV99dzhAAkiukveshHf.1fe6udS6Vh.KSX6un11zlR.ctq",
+      "passwordHash": "$2b$10$1BDHJhj.3tqVkKlivVTmdOGzblwE/kxveR3gJCMH6WGSmypA1O/oW",
       "role": "SUPER_ADMIN",
       "createdAt": "2026-08-21T14:32:09.193Z",
-      "updatedAt": "2026-08-21T14:32:09.193Z"
+      "updatedAt": "2026-08-21T19:21:12.829Z"
     }
   ],
   "competitions": [
@@ -34,7 +34,7 @@
       "name": "Amarachi Akunne",
       "slug": "amarachi-akunne",
       "state": "Imo State",
-      "biography": "Dedicated youth leader, dedicated choir chorister, and passionate ambassador candidate representing Imo State in Christ Holy Church International No. 2 Benin.",
+      "biography": "Vibrant youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Committed to praise ministry, youth fellowship, and ambassadorial excellence representing Imo State.",
       "image": "",
       "status": "ACTIVE",
       "sortOrder": 1,
@@ -47,7 +47,7 @@
       "name": "David Okolo",
       "slug": "david-okolo",
       "state": "Edo State",
-      "biography": "Vibrant church worker, community organizer, and steadfast servant representing Edo State in the ambassadorial crown contest.",
+      "biography": "Active youth member and passionate choir chorister at Christ Holy Church International No. 2 Benin. Dedicated to music ministry, youth leadership, and spiritual growth representing Edo State.",
       "image": "",
       "status": "ACTIVE",
       "sortOrder": 2,
@@ -60,7 +60,7 @@
       "name": "Onyinyechi Chilokwu",
       "slug": "onyinyechi-chilokwu",
       "state": "Anambra State",
-      "biography": "Committed scripture teacher, women fellowship advocate, and inspiring ambassadorial candidate representing Anambra State.",
+      "biography": "Devoted youth member and inspiring choir chorister at Christ Holy Church International No. 2 Benin. Committed to worship ministry, church advancement, and godly values representing Anambra State.",
       "image": "",
       "status": "ACTIVE",
       "sortOrder": 3,
@@ -73,7 +73,7 @@
       "name": "Chiagozie Okafor",
       "slug": "chiagozie-okafor",
       "state": "Enugu State",
-      "biography": "Dynamic technical and media department contributor, dedicated evangelism coordinator representing Enugu State.",
+      "biography": "Dynamic youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Passionate about music evangelism, youth development, and service representing Enugu State.",
       "image": "",
       "status": "ACTIVE",
       "sortOrder": 4,
@@ -81,83 +81,7 @@
       "updatedAt": "2026-08-21T14:32:09.193Z"
     }
   ],
-  "voting_transactions": [
-    {
-      "id": "tx-1787327346361-8f1b80",
-      "paymentReference": "VOTE-5F28A872",
-      "competitionId": "comp-chc-benin-01",
-      "candidateId": "cand-01",
-      "voterName": "",
-      "voterEmail": "",
-      "voterPhone": "",
-      "voteQuantity": 1,
-      "expectedAmount": 50,
-      "amountTransferred": 0,
-      "status": "PENDING",
-      "createdAt": "2026-08-21T15:49:06.361Z",
-      "updatedAt": "2026-08-21T15:49:06.361Z"
-    },
-    {
-      "id": "tx-1787327353208-dd5d06",
-      "paymentReference": "VOTE-12EC71F2",
-      "competitionId": "comp-chc-benin-01",
-      "candidateId": "cand-01",
-      "voterName": "",
-      "voterEmail": "",
-      "voterPhone": "",
-      "voteQuantity": 10,
-      "expectedAmount": 500,
-      "amountTransferred": 0,
-      "status": "PENDING",
-      "createdAt": "2026-08-21T15:49:13.208Z",
-      "updatedAt": "2026-08-21T15:49:13.208Z"
-    },
-    {
-      "id": "tx-1787327365238-800e1b",
-      "paymentReference": "VOTE-EAF2FC3C",
-      "competitionId": "comp-chc-benin-01",
-      "candidateId": "cand-01",
-      "voterName": "",
-      "voterEmail": "",
-      "voterPhone": "",
-      "voteQuantity": 10,
-      "expectedAmount": 500,
-      "amountTransferred": 0,
-      "status": "PENDING",
-      "createdAt": "2026-08-21T15:49:25.238Z",
-      "updatedAt": "2026-08-21T15:49:25.238Z"
-    },
-    {
-      "id": "tx-1787327372827-fec1e5",
-      "paymentReference": "VOTE-AF1B2B45",
-      "competitionId": "comp-chc-benin-01",
-      "candidateId": "cand-01",
-      "voterName": "",
-      "voterEmail": "",
-      "voterPhone": "",
-      "voteQuantity": 10,
-      "expectedAmount": 500,
-      "amountTransferred": 0,
-      "status": "PENDING",
-      "createdAt": "2026-08-21T15:49:32.827Z",
-      "updatedAt": "2026-08-21T15:49:32.827Z"
-    },
-    {
-      "id": "tx-1787327387529-597020",
-      "paymentReference": "VOTE-D062ECF2",
-      "competitionId": "comp-chc-benin-01",
-      "candidateId": "cand-01",
-      "voterName": "",
-      "voterEmail": "",
-      "voterPhone": "",
-      "voteQuantity": 10,
-      "expectedAmount": 500,
-      "amountTransferred": 0,
-      "status": "PENDING",
-      "createdAt": "2026-08-21T15:49:47.529Z",
-      "updatedAt": "2026-08-21T15:49:47.529Z"
-    }
-  ],
+  "voting_transactions": [],
   "vote_ledger": [],
   "payment_settings": {
     "id": "sett-01",
@@ -183,6 +107,116 @@
         "votePrice": 50
       },
       "createdAt": "2026-08-21T14:32:09.193Z"
+    },
+    {
+      "id": "log-1787336529660-303ead",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787327372827-fec1e5",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-AF1B2B45",
+        "voterName": "",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 10,
+        "expectedAmount": 500,
+        "candidateId": "cand-01",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-21T18:22:09.660Z"
+    },
+    {
+      "id": "log-1787336534414-b4100c",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787327387529-597020",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-D062ECF2",
+        "voterName": "",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 10,
+        "expectedAmount": 500,
+        "candidateId": "cand-01",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-21T18:22:14.414Z"
+    },
+    {
+      "id": "log-1787336538569-142c79",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787327353208-dd5d06",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-12EC71F2",
+        "voterName": "",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 10,
+        "expectedAmount": 500,
+        "candidateId": "cand-01",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-21T18:22:18.569Z"
+    },
+    {
+      "id": "log-1787336541447-1db732",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787327365238-800e1b",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-EAF2FC3C",
+        "voterName": "",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 10,
+        "expectedAmount": 500,
+        "candidateId": "cand-01",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-21T18:22:21.447Z"
+    },
+    {
+      "id": "log-1787336543761-7966e5",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787327346361-8f1b80",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-5F28A872",
+        "voterName": "",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 1,
+        "expectedAmount": 50,
+        "candidateId": "cand-01",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-21T18:22:23.761Z"
     }
   ]
 }

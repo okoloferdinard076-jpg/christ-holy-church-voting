@@ -144,8 +144,8 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                 {getInitials(candidate.name) || <User className="w-8 h-8 text-blue-900/60 dark:text-blue-300" />}
               </span>
             </div>
-            <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-              Contestant
+            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+              Youth & Chorister
             </span>
           </div>
         )}

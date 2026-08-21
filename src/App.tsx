@@ -22,7 +22,7 @@ const DEFAULT_CANDIDATES: Candidate[] = [
     slug: 'amarachi-akunne',
     state: 'Imo State',
     biography:
-      'Dedicated youth leader, dedicated choir chorister, and passionate ambassador candidate representing Imo State in Christ Holy Church International No. 2 Benin.',
+      'Vibrant youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Committed to praise ministry, youth fellowship, and ambassadorial excellence representing Imo State.',
     image: '',
     status: 'ACTIVE',
     sortOrder: 1,
@@ -37,7 +37,7 @@ const DEFAULT_CANDIDATES: Candidate[] = [
     slug: 'david-okolo',
     state: 'Edo State',
     biography:
-      'Vibrant church worker, community organizer, and steadfast servant representing Edo State in the ambassadorial crown contest.',
+      'Active youth member and passionate choir chorister at Christ Holy Church International No. 2 Benin. Dedicated to music ministry, youth leadership, and spiritual growth representing Edo State.',
     image: '',
     status: 'ACTIVE',
     sortOrder: 2,
@@ -52,7 +52,7 @@ const DEFAULT_CANDIDATES: Candidate[] = [
     slug: 'onyinyechi-chilokwu',
     state: 'Anambra State',
     biography:
-      'Committed scripture teacher, women fellowship advocate, and inspiring ambassadorial candidate representing Anambra State.',
+      'Devoted youth member and inspiring choir chorister at Christ Holy Church International No. 2 Benin. Committed to worship ministry, church advancement, and godly values representing Anambra State.',
     image: '',
     status: 'ACTIVE',
     sortOrder: 3,
@@ -67,7 +67,7 @@ const DEFAULT_CANDIDATES: Candidate[] = [
     slug: 'chiagozie-okafor',
     state: 'Enugu State',
     biography:
-      'Dynamic technical and media department contributor, dedicated evangelism coordinator representing Enugu State.',
+      'Dynamic youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Passionate about music evangelism, youth development, and service representing Enugu State.',
     image: '',
     status: 'ACTIVE',
     sortOrder: 4,
