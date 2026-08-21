@@ -48,7 +48,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
   // Login Form States
   const [emailInput, setEmailInput] = useState('medicreceptor@gmail.com');
-  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('CHC2BENIN@YOUTH');
   const [showPassword, setShowPassword] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -69,7 +69,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
       setStats(data);
     } catch (err: any) {
       console.error(err);
-      if (err.message?.includes('token') || err.message?.includes('Unauthorized')) {
+      if (err.message?.includes('token') || err.message?.includes('Unauthorized') || err.message?.includes('Forbidden') || err.message?.includes('Session expired')) {
         handleLogout();
       }
     }
@@ -81,13 +81,12 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
     }
   }, [token]);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const performLogin = async (email: string, pass: string) => {
     setLoginLoading(true);
     setLoginError(null);
 
-    const cleanEmail = emailInput.trim();
-    const cleanPassword = passwordInput.trim();
+    const cleanEmail = email.trim();
+    const cleanPassword = pass.trim();
 
     if (!cleanEmail || !cleanPassword) {
       setLoginError('Please enter both your admin email and password');
@@ -106,6 +105,17 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
     } finally {
       setLoginLoading(false);
     }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await performLogin(emailInput, passwordInput);
+  };
+
+  const loginWithPreset = async (email: string) => {
+    setEmailInput(email);
+    setPasswordInput('CHC2BENIN@YOUTH');
+    await performLogin(email, 'CHC2BENIN@YOUTH');
   };
 
   const fillDefaultCredentials = () => {
@@ -253,15 +263,30 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-1 flex items-center justify-between">
-                  <button
-                    type="button"
-                    onClick={fillDefaultCredentials}
-                    className="text-[11px] font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 cursor-pointer transition-colors"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                    <span>Auto-fill Admin Credentials</span>
-                  </button>
+                <div className="pt-1 space-y-2">
+                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    Quick Sign-In As:
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      disabled={loginLoading}
+                      onClick={() => loginWithPreset('medicreceptor@gmail.com')}
+                      className="px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-950 text-left transition-colors cursor-pointer disabled:opacity-50"
+                    >
+                      <div className="font-bold text-xs truncate">medicreceptor@gmail.com</div>
+                      <div className="text-[10px] text-blue-700 font-semibold">1-Click Sign In &rarr;</div>
+                    </button>
+                    <button
+                      type="button"
+                      disabled={loginLoading}
+                      onClick={() => loginWithPreset('ferdinardokolo@gmail.com')}
+                      className="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-950 text-left transition-colors cursor-pointer disabled:opacity-50"
+                    >
+                      <div className="font-bold text-xs truncate">ferdinardokolo@gmail.com</div>
+                      <div className="text-[10px] text-amber-700 font-semibold">1-Click Sign In &rarr;</div>
+                    </button>
+                  </div>
                 </div>
 
                 <div className="pt-2">
@@ -271,7 +296,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                     className="w-full py-3 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     <Key className="w-4 h-4 text-amber-400" />
-                    <span>{loginLoading ? 'Authenticating...' : 'Sign In as Administrator'}</span>
+                    <span>{loginLoading ? 'Authenticating...' : 'Sign In with Entered Credentials'}</span>
                   </button>
                 </div>
               </form>

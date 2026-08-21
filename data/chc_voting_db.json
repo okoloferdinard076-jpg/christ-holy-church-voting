@@ -5,10 +5,20 @@
       "name": "Executive Admin",
       "email": "medicreceptor@gmail.com",
       "phone": "09017311644",
-      "passwordHash": "$2b$10$1BDHJhj.3tqVkKlivVTmdOGzblwE/kxveR3gJCMH6WGSmypA1O/oW",
+      "passwordHash": "$2b$10$75AZTrpi2ojzDhIteKGzd.2nGcok7XMIlcKCZ68ZqfKsUMm2ZO2ZG",
       "role": "SUPER_ADMIN",
       "createdAt": "2026-08-21T14:32:09.193Z",
-      "updatedAt": "2026-08-21T20:57:55.526Z"
+      "updatedAt": "2026-08-21T21:16:48.522Z"
+    },
+    {
+      "id": "usr-admin-02",
+      "name": "Contest Presiding Admin",
+      "email": "ferdinardokolo@gmail.com",
+      "phone": "09017311644",
+      "passwordHash": "$2b$10$y4zcEMCgT.zsYSouzaiSaeQJrRycuKbCTD5ot.ynycHJy8nOXMXEu",
+      "role": "SUPER_ADMIN",
+      "createdAt": "2026-08-21T21:07:32.409Z",
+      "updatedAt": "2026-08-21T21:08:17.485Z"
     }
   ],
   "competitions": [
@@ -81,37 +91,8 @@
       "updatedAt": "2026-08-21T14:32:09.193Z"
     }
   ],
-  "voting_transactions": [
-    {
-      "id": "tx-1787345877742-54716a",
-      "paymentReference": "VOTE-D82F4BC2",
-      "competitionId": "comp-chc-benin-01",
-      "candidateId": "cand-01",
-      "voterName": "Bro. Emmanuel",
-      "voterEmail": "",
-      "voterPhone": "08012345678",
-      "voteQuantity": 20,
-      "expectedAmount": 1000,
-      "amountTransferred": 1000,
-      "status": "APPROVED",
-      "createdAt": "2026-08-21T20:57:57.742Z",
-      "updatedAt": "2026-08-21T20:58:20.522Z",
-      "submittedAt": "2026-08-21T20:57:59.515Z",
-      "approvedBy": "usr-admin-01",
-      "approvedByName": "Executive Admin",
-      "approvedAt": "2026-08-21T20:58:20.522Z"
-    }
-  ],
-  "vote_ledger": [
-    {
-      "id": "vld-1787345900522-2bc544",
-      "transactionId": "tx-1787345877742-54716a",
-      "competitionId": "comp-chc-benin-01",
-      "candidateId": "cand-01",
-      "quantity": 20,
-      "createdAt": "2026-08-21T20:58:20.522Z"
-    }
-  ],
+  "voting_transactions": [],
+  "vote_ledger": [],
   "payment_settings": {
     "id": "sett-01",
     "bankName": "OPAY",
@@ -394,6 +375,50 @@
         "voterPhone": "08012345678"
       },
       "createdAt": "2026-08-21T20:58:20.522Z"
+    },
+    {
+      "id": "log-1787345994961-376bc7",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787345877742-54716a",
+      "previousValue": "APPROVED",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-D82F4BC2",
+        "voterName": "Bro. Emmanuel",
+        "voterEmail": "",
+        "voterPhone": "08012345678",
+        "statusBeforeDeletion": "APPROVED",
+        "voteQuantity": 20,
+        "expectedAmount": 1000,
+        "candidateId": "cand-01",
+        "votesDeducted": 20
+      },
+      "createdAt": "2026-08-21T20:59:54.961Z"
+    },
+    {
+      "id": "log-1787346022018-f0f6c5",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787346006857-d74ea5",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-BBCB43C8",
+        "voterName": "",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 10,
+        "expectedAmount": 500,
+        "candidateId": "cand-01",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-21T21:00:22.018Z"
     }
   ]
 }
