@@ -74,14 +74,14 @@ export async function initiateVotingIntent(params: {
   voteQuantity: number;
   pricePerVote: number;
 }> {
-  const res = await fetch(`${API_BASE}/vote/intent`, {
+  const res = await safeFetch(`${API_BASE}/vote/intent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(params),
-  });
+  }, 2, 400);
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || 'Failed to initialize voting transaction');
+    throw new Error(err.error || err.message || 'Failed to initialize voting transaction');
   }
   return res.json();
 }
@@ -99,14 +99,14 @@ export async function submitPaymentProof(params: {
   message: string;
   transaction: VotingTransaction;
 }> {
-  const res = await fetch(`${API_BASE}/vote/submit-proof`, {
+  const res = await safeFetch(`${API_BASE}/vote/submit-proof`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(params),
-  });
+  }, 2, 400);
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || 'Failed to submit payment verification proof');
+    throw new Error(err.error || err.message || 'Failed to submit payment verification proof');
   }
   return res.json();
 }

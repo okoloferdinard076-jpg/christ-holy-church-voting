@@ -8,7 +8,7 @@
       "passwordHash": "$2b$10$1BDHJhj.3tqVkKlivVTmdOGzblwE/kxveR3gJCMH6WGSmypA1O/oW",
       "role": "SUPER_ADMIN",
       "createdAt": "2026-08-21T14:32:09.193Z",
-      "updatedAt": "2026-08-21T19:21:12.829Z"
+      "updatedAt": "2026-08-21T20:46:04.639Z"
     }
   ],
   "competitions": [
@@ -81,7 +81,53 @@
       "updatedAt": "2026-08-21T14:32:09.193Z"
     }
   ],
-  "voting_transactions": [],
+  "voting_transactions": [
+    {
+      "id": "tx-1787345122540-1c7fec",
+      "paymentReference": "VOTE-AFD8FA69",
+      "competitionId": "comp-chc-benin-01",
+      "candidateId": "cand-01",
+      "voterName": "",
+      "voterEmail": "",
+      "voterPhone": "",
+      "voteQuantity": 10,
+      "expectedAmount": 500,
+      "amountTransferred": 0,
+      "status": "PENDING",
+      "createdAt": "2026-08-21T20:45:22.540Z",
+      "updatedAt": "2026-08-21T20:45:22.540Z"
+    },
+    {
+      "id": "tx-1787345165667-928e1d",
+      "paymentReference": "VOTE-331D834B",
+      "competitionId": "comp-chc-benin-01",
+      "candidateId": "cand-01",
+      "voterName": "",
+      "voterEmail": "",
+      "voterPhone": "",
+      "voteQuantity": 10,
+      "expectedAmount": 500,
+      "amountTransferred": 0,
+      "status": "PENDING",
+      "createdAt": "2026-08-21T20:46:05.667Z",
+      "updatedAt": "2026-08-21T20:46:05.667Z"
+    },
+    {
+      "id": "tx-1787345169034-ae1ee3",
+      "paymentReference": "VOTE-F0980C86",
+      "competitionId": "comp-chc-benin-01",
+      "candidateId": "cand-02",
+      "voterName": "",
+      "voterEmail": "",
+      "voterPhone": "",
+      "voteQuantity": 25,
+      "expectedAmount": 1250,
+      "amountTransferred": 0,
+      "status": "PENDING",
+      "createdAt": "2026-08-21T20:46:09.034Z",
+      "updatedAt": "2026-08-21T20:46:09.034Z"
+    }
+  ],
   "vote_ledger": [],
   "payment_settings": {
     "id": "sett-01",

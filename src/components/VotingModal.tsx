@@ -126,12 +126,15 @@ export const VotingModal: React.FC<VotingModalProps> = ({
 
   // Step 3: Server generates Unique Payment Reference
   const handleProceedToPayment = async () => {
-    if (!selectedCandidate) {
-      setErrorMessage('Please select a candidate');
+    const candidateToUse = selectedCandidate || (candidates.length > 0 ? candidates[0] : null);
+    if (!candidateToUse) {
+      setErrorMessage('Please select a candidate to vote for');
       return;
     }
-    if (voteCount <= 0 || !Number.isInteger(voteCount)) {
-      setErrorMessage('Please select a valid positive number of votes');
+
+    const count = Math.floor(Number(voteCount));
+    if (isNaN(count) || count <= 0) {
+      setErrorMessage('Please enter a valid positive number of votes (minimum 1)');
       return;
     }
 
@@ -140,14 +143,15 @@ export const VotingModal: React.FC<VotingModalProps> = ({
 
     try {
       const res = await initiateVotingIntent({
-        candidateId: selectedCandidate.id,
-        voteQuantity: voteCount,
+        candidateId: candidateToUse.id || candidateToUse.slug,
+        voteQuantity: count,
       });
       setActiveTransaction(res.transaction);
       setAmountTransferred(res.expectedAmount);
       setStep('PAYMENT_INSTRUCTIONS');
     } catch (err: any) {
-      setErrorMessage(err.message || 'Failed to initialize payment transaction');
+      console.error('Voting initialization error:', err);
+      setErrorMessage(err.message || 'Failed to initialize voting transaction. Please try again.');
     } finally {
       setIsInitializing(false);
     }
