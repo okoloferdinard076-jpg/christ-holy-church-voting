@@ -119,6 +119,13 @@ export default function App() {
   const [profileCandidate, setProfileCandidate] = useState<Candidate | null>(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [statusCheckRef, setStatusCheckRef] = useState<string | null>(null);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(() => {
+    return !!localStorage.getItem('chc_admin_token');
+  });
+
+  const checkAdminSession = () => {
+    setIsAdminLoggedIn(!!localStorage.getItem('chc_admin_token'));
+  };
 
   const loadData = async (silent = false) => {
     if (!silent && candidates.length === 0) {
@@ -130,9 +137,6 @@ export default function App() {
       setCandidates(data.candidates && data.candidates.length > 0 ? data.candidates : DEFAULT_CANDIDATES);
       setTotalVotes(data.totalApprovedVotes || 0);
       setPaymentSettings(data.paymentSettings);
-      if (typeof data.pendingTransactionsCount === 'number') {
-        setPendingPaymentsCount(data.pendingTransactionsCount);
-      }
       setFetchError(null);
     } catch (err: any) {
       // Don't crash UI, keep default state
@@ -146,8 +150,15 @@ export default function App() {
   };
 
   const refreshPendingCount = async () => {
+    const token = localStorage.getItem('chc_admin_token');
+    if (!token) {
+      setPendingPaymentsCount(0);
+      setIsAdminLoggedIn(false);
+      return;
+    }
+    setIsAdminLoggedIn(true);
     try {
-      const count = await fetchPendingTransactionsCount();
+      const count = await fetchPendingTransactionsCount(token);
       setPendingPaymentsCount(count);
     } catch (e) {
       // quiet fallback
@@ -156,10 +167,11 @@ export default function App() {
 
   useEffect(() => {
     loadData(true);
+    refreshPendingCount();
     // Refresh contest data every 10 seconds
     const contestInterval = setInterval(() => loadData(true), 10000);
-    // Real-time pending count poller every 5 seconds for instant admin alerts
-    const notificationInterval = setInterval(refreshPendingCount, 5000);
+    // Real-time pending count poller for authenticated admins
+    const notificationInterval = setInterval(refreshPendingCount, 6000);
 
     return () => {
       clearInterval(contestInterval);
@@ -194,13 +206,14 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-blue-900 selection:text-white">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-blue-900 dark:selection:bg-amber-500 selection:text-white dark:selection:text-slate-950 transition-colors duration-200">
       {/* Navigation */}
       <Navbar
         activeTab={activeNavTab}
         setActiveTab={setActiveNavTab}
         onOpenVoteModal={() => handleStartVoting()}
         onOpenAdmin={() => setIsAdminOpen(true)}
+        isAdminLoggedIn={isAdminLoggedIn}
         pendingPaymentsCount={pendingPaymentsCount}
       />
 
@@ -216,18 +229,18 @@ export default function App() {
       {/* Main Content Area */}
       <main className="flex-1">
         {/* Candidates Section */}
-        <section className="py-16 bg-white border-b border-slate-200/80" id="candidates">
+        <section className="py-16 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-200" id="candidates">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider mb-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800/60 text-blue-900 dark:text-blue-300 text-xs font-bold uppercase tracking-wider mb-2">
                   <Users className="w-3.5 h-3.5" />
                   <span>Ambassadorial Aspirants</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-950 tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-950 dark:text-white tracking-tight">
                   Official Contestants
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
                   Select an ambassador to read their profile and cast your verified votes.
                 </p>
               </div>
@@ -235,20 +248,20 @@ export default function App() {
               {/* Search & State Filter Controls */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <div className="relative">
-                  <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-400 dark:text-slate-500" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search candidate name or state..."
-                    className="w-full sm:w-64 pl-10 pr-4 py-2 text-xs rounded-xl border border-slate-300 focus:border-blue-900 focus:ring-2 focus:ring-blue-900/10"
+                    className="w-full sm:w-64 pl-10 pr-4 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-blue-900 dark:focus:border-amber-400 focus:ring-2 focus:ring-blue-900/10 dark:focus:ring-amber-400/10"
                   />
                 </div>
 
                 <select
                   value={selectedState}
                   onChange={(e) => setSelectedState(e.target.value)}
-                  className="px-3 py-2 text-xs rounded-xl border border-slate-300 bg-white font-medium focus:border-blue-900"
+                  className="px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-medium focus:border-blue-900 dark:focus:border-amber-400"
                 >
                   <option value="ALL">All States</option>
                   {availableStates.map((st) => (
@@ -263,14 +276,14 @@ export default function App() {
             {/* Candidates Grid */}
             {isLoading ? (
               <div className="py-16 text-center text-slate-400">
-                <RefreshCw className="w-8 h-8 animate-spin mx-auto text-blue-900 mb-2" />
+                <RefreshCw className="w-8 h-8 animate-spin mx-auto text-blue-900 dark:text-amber-400 mb-2" />
                 <p className="text-xs font-semibold">Loading official candidates...</p>
               </div>
             ) : filteredCandidates.length === 0 ? (
-              <div className="py-16 text-center bg-slate-50 rounded-2xl border border-slate-200">
-                <AlertCircle className="w-8 h-8 mx-auto text-slate-400 mb-2" />
-                <p className="text-sm font-bold text-slate-700">No candidates found</p>
-                <p className="text-xs text-slate-500 mt-1">
+              <div className="py-16 text-center bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                <AlertCircle className="w-8 h-8 mx-auto text-slate-400 dark:text-slate-500 mb-2" />
+                <p className="text-sm font-bold text-slate-700 dark:text-slate-300">No candidates found</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   Try adjusting your search criteria or state filter.
                 </p>
               </div>
@@ -317,6 +330,7 @@ export default function App() {
       {/* Footer */}
       <Footer
         onOpenAdmin={() => setIsAdminOpen(true)}
+        isAdminLoggedIn={isAdminLoggedIn}
         pendingPaymentsCount={pendingPaymentsCount}
       />
 
@@ -360,12 +374,14 @@ export default function App() {
         <AdminPortal
           onClose={() => {
             setIsAdminOpen(false);
+            checkAdminSession();
             loadData();
             refreshPendingCount();
           }}
           candidates={candidates}
           paymentSettings={paymentSettings}
           onRefreshData={() => {
+            checkAdminSession();
             loadData();
             refreshPendingCount();
           }}

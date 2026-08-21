@@ -1,13 +1,14 @@
 import React from 'react';
 import { ChcLogo } from './ChcLogo';
-import { ShieldCheck, Heart, Lock } from 'lucide-react';
+import { ShieldCheck, Heart, Lock, MessageCircle } from 'lucide-react';
 
 interface FooterProps {
   onOpenAdmin: () => void;
+  isAdminLoggedIn?: boolean;
   pendingPaymentsCount?: number;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, pendingPaymentsCount = 0 }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, isAdminLoggedIn, pendingPaymentsCount = 0 }) => {
   return (
     <footer className="bg-slate-950 text-slate-300 border-t border-slate-800 pt-12 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,13 +80,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, pendingPaymentsCoun
             <div className="pt-2">
               <button
                 onClick={onOpenAdmin}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-850 text-slate-300 hover:text-white border border-slate-850 text-xs font-medium transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-850 text-slate-300 hover:text-white border border-slate-800 text-xs font-medium transition-colors cursor-pointer"
                 id="footer-admin-login-btn"
               >
                 <Lock className="w-3.5 h-3.5 text-amber-400" />
-                <span>Admin Secure Login</span>
-                {pendingPaymentsCount > 0 && (
-                  <span className="px-1.5 py-0.2 rounded-full bg-red-600 text-white font-extrabold text-[10px] animate-pulse">
+                <span>{isAdminLoggedIn ? 'Admin Portal (Active)' : 'Admin Portal'}</span>
+                {isAdminLoggedIn && pendingPaymentsCount > 0 && (
+                  <span className="px-1.5 py-0.5 rounded-full bg-red-600 text-white font-extrabold text-[10px] animate-pulse">
                     {pendingPaymentsCount} PENDING
                   </span>
                 )}
@@ -95,11 +96,25 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, pendingPaymentsCoun
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-900 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="pt-8 border-t border-slate-900 text-xs text-slate-400 flex flex-col md:flex-row items-center justify-between gap-4">
           <p>© {new Date().getFullYear()} Christ Holy Church International No. 2 Benin. All rights reserved.</p>
-          <p className="flex items-center gap-1 text-[11px]">
-            <span>Official Ambassadorial Crown Voting System</span>
-          </p>
+          
+          {/* Creator Attribution with WhatsApp link */}
+          <div className="flex items-center flex-wrap justify-center gap-2 text-xs">
+            <span>Website created by <strong className="text-slate-200 font-bold">Ferdinard</strong></span>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <a
+              href="https://wa.me/2348165686796?text=Hello%20Ferdinard%2C%20I%20am%20reaching%20out%20from%20the%20Christ%20Holy%20Church%20Voting%20Portal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 hover:bg-emerald-900 text-emerald-400 hover:text-emerald-300 border border-emerald-800/60 font-semibold transition-all duration-200 shadow-xs"
+              id="footer-whatsapp-creator-link"
+              title="Chat with Ferdinard on WhatsApp: 08165686796"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400/20" />
+              <span>Message on WhatsApp (08165686796)</span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>

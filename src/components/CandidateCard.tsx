@@ -97,11 +97,11 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
   return (
     <div
       id={`candidate-card-${candidate.slug}`}
-      className="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group relative"
+      className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-xl dark:hover:border-slate-700 transition-all duration-300 overflow-hidden flex flex-col group relative"
     >
       {/* State Badge */}
       <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
-        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-950/85 backdrop-blur-md text-white text-xs font-bold tracking-wide shadow-sm">
+        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-950/85 dark:bg-slate-950/90 backdrop-blur-md text-white text-xs font-bold tracking-wide shadow-sm border border-white/10">
           <MapPin className="w-3 h-3 text-red-400" />
           {candidate.state}
         </span>
@@ -126,7 +126,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
 
       {/* Candidate Portrait Container */}
       <div
-        className="relative aspect-4/3 sm:aspect-square bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50/40 border-b border-slate-100 overflow-hidden cursor-pointer flex items-center justify-center"
+        className="relative aspect-4/3 sm:aspect-square bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50/40 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 border-b border-slate-100 dark:border-slate-800 overflow-hidden cursor-pointer flex items-center justify-center"
         onClick={() => onViewProfile(candidate)}
       >
         {candidate.image && candidate.image.trim() ? (
@@ -138,19 +138,19 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
           />
         ) : (
           /* Blank Portrait Placeholder with Initials */
-          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center select-none bg-slate-50/80">
-            <div className="w-20 h-20 rounded-full bg-blue-900/10 border-2 border-blue-950/15 flex items-center justify-center text-blue-950 shadow-inner mb-2 group-hover:scale-105 transition-transform">
-              <span className="text-2xl font-black tracking-wider text-blue-950">
-                {getInitials(candidate.name) || <User className="w-8 h-8 text-blue-900/60" />}
+          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center select-none bg-slate-50/80 dark:bg-slate-900/60">
+            <div className="w-20 h-20 rounded-full bg-blue-900/10 dark:bg-slate-800 border-2 border-blue-950/15 dark:border-slate-700 flex items-center justify-center text-blue-950 dark:text-blue-300 shadow-inner mb-2 group-hover:scale-105 transition-transform">
+              <span className="text-2xl font-black tracking-wider text-blue-950 dark:text-blue-300">
+                {getInitials(candidate.name) || <User className="w-8 h-8 text-blue-900/60 dark:text-blue-300" />}
               </span>
             </div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+            <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
               Contestant
             </span>
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 pointer-events-none" />
 
         {/* Name overlay at base */}
         <div className="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
@@ -164,35 +164,35 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
       {/* Card Content & Approved Votes */}
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3.5 sm:space-y-4">
         {/* Authoritative Approved Votes Display */}
-        <div className="bg-blue-50/60 rounded-xl p-3 sm:p-3.5 border border-blue-100 flex items-center justify-between">
+        <div className="bg-blue-50/60 dark:bg-slate-800/80 rounded-xl p-3 sm:p-3.5 border border-blue-100 dark:border-slate-700 flex items-center justify-between">
           <div className="flex flex-col min-w-0 pr-2">
-            <span className="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider truncate">
+            <span className="text-[11px] sm:text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider truncate">
               Approved Votes
             </span>
-            <span className="text-xl sm:text-2xl font-black text-blue-950 tracking-tight">
+            <span className="text-xl sm:text-2xl font-black text-blue-950 dark:text-amber-400 tracking-tight">
               {votes.toLocaleString()}{' '}
-              <span className="text-xs font-semibold text-slate-500">votes</span>
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">votes</span>
             </span>
           </div>
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center shrink-0">
             <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
         </div>
 
         {/* Short Biography excerpt */}
-        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
           {candidate.biography}
         </p>
 
         {/* Social Media Sharing Section */}
-        <div className="pt-2.5 sm:pt-3 border-t border-slate-100">
+        <div className="pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-slate-800">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-              <Share2 className="w-3 h-3 text-blue-900" />
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1">
+              <Share2 className="w-3 h-3 text-blue-900 dark:text-amber-400" />
               Share to Support
             </span>
             {copied && (
-              <span className="text-[10px] sm:text-[11px] font-bold text-emerald-600 flex items-center gap-1 animate-fade-in">
+              <span className="text-[10px] sm:text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 animate-fade-in">
                 <Check className="w-3 h-3" />
                 Link copied!
               </span>
@@ -205,9 +205,9 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
               onClick={handleWhatsAppShare}
               id={`share-wa-${candidate.slug}`}
               title={`Share ${candidate.name} on WhatsApp`}
-              className="py-2 px-1 sm:px-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 hover:text-emerald-800 border border-emerald-200/80 font-bold text-[10px] sm:text-[11px] transition-colors flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer min-h-[36px]"
+              className="py-2 px-1 sm:px-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/60 font-bold text-[10px] sm:text-[11px] transition-colors flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer min-h-[36px]"
             >
-              <MessageCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span className="truncate">WhatsApp</span>
             </button>
 
@@ -216,9 +216,9 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
               onClick={handleTwitterShare}
               id={`share-tw-${candidate.slug}`}
               title={`Share ${candidate.name} on X (Twitter)`}
-              className="py-2 px-1 sm:px-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 font-bold text-[10px] sm:text-[11px] transition-colors flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer min-h-[36px]"
+              className="py-2 px-1 sm:px-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-[10px] sm:text-[11px] transition-colors flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer min-h-[36px]"
             >
-              <Twitter className="w-3.5 h-3.5 text-slate-700 shrink-0" />
+              <Twitter className="w-3.5 h-3.5 text-slate-700 dark:text-slate-300 shrink-0" />
               <span className="truncate">X / Post</span>
             </button>
 
@@ -230,7 +230,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
               className={`py-2 px-1 sm:px-2 rounded-lg border font-bold text-[10px] sm:text-[11px] transition-all flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer min-h-[36px] ${
                 copied
                   ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
-                  : 'bg-blue-50/70 hover:bg-blue-100 text-blue-900 border-blue-200/80'
+                  : 'bg-blue-50/70 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-900 dark:text-blue-300 border-blue-200/80 dark:border-blue-800/60'
               }`}
             >
               {copied ? (
@@ -240,7 +240,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5 text-blue-800 shrink-0" />
+                  <Copy className="w-3.5 h-3.5 text-blue-800 dark:text-blue-300 shrink-0" />
                   <span className="truncate">Copy Link</span>
                 </>
               )}
@@ -253,18 +253,18 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
           <button
             onClick={() => onVote(candidate)}
             id={`vote-btn-${candidate.slug}`}
-            className="w-full py-2.5 px-3 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs tracking-wide shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-98 min-h-[42px]"
+            className="w-full py-2.5 px-3 rounded-xl bg-blue-900 hover:bg-blue-950 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-slate-950 font-bold text-xs tracking-wide shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-98 min-h-[42px]"
           >
-            <Vote className="w-4 h-4 text-amber-400 shrink-0" />
+            <Vote className="w-4 h-4 text-amber-400 dark:text-slate-950 shrink-0" />
             <span className="truncate">Vote for {candidate.name.split(' ')[0]}</span>
           </button>
 
           <button
             onClick={() => onViewProfile(candidate)}
             id={`view-profile-${candidate.slug}`}
-            className="w-full py-2.5 px-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer min-h-[42px]"
+            className="w-full py-2.5 px-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer min-h-[42px]"
           >
-            <Info className="w-4 h-4 text-slate-500 shrink-0" />
+            <Info className="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" />
             <span>Profile & Bio</span>
           </button>
         </div>

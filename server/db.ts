@@ -297,8 +297,10 @@ class DatabaseService {
         );
 
         if (adminUserIndex >= 0) {
-          parsed.users[adminUserIndex].email = 'medicreceptor@gmail.com';
-          parsed.users[adminUserIndex].passwordHash = adminHash;
+          parsed.users[adminUserIndex].email = parsed.users[adminUserIndex].email || 'medicreceptor@gmail.com';
+          if (!parsed.users[adminUserIndex].passwordHash) {
+            parsed.users[adminUserIndex].passwordHash = adminHash;
+          }
           parsed.users[adminUserIndex].role = 'SUPER_ADMIN';
           parsed.users[adminUserIndex].updatedAt = now;
         } else {
@@ -1158,13 +1160,60 @@ class DatabaseService {
     return sorted.slice(0, limit);
   }
 
-  // --- Auth / User Validation ---
+  // --- Auth / User Validation & Password Management ---
   getUserByEmail(email: string) {
     return this.data.users.find((u) => u.email.toLowerCase() === email.toLowerCase());
   }
 
   getUserById(id: string) {
     return this.data.users.find((u) => u.id === id);
+  }
+
+  async changeAdminPassword(
+    userId: string,
+    currentPass: string,
+    newPass: string,
+    adminUser: { id: string; name: string }
+  ) {
+    const release = await dbMutex.acquire();
+    try {
+      const user = this.data.users.find((u) => u.id === userId);
+      if (!user) {
+        throw new Error('Administrator user account not found');
+      }
+
+      const isValid = bcrypt.compareSync(currentPass, user.passwordHash);
+      if (!isValid) {
+        throw new Error('Current password does not match our records');
+      }
+
+      if (!newPass || newPass.trim().length < 8) {
+        throw new Error('New password must be at least 8 characters long');
+      }
+
+      const now = new Date().toISOString();
+      user.passwordHash = bcrypt.hashSync(newPass.trim(), 10);
+      user.updatedAt = now;
+
+      this.data.audit_logs.push({
+        id: `log-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`,
+        actorUserId: adminUser.id,
+        actorName: adminUser.name,
+        action: 'ADMIN_PASSWORD_CHANGED',
+        entityType: 'USER',
+        entityId: user.id,
+        metadata: {
+          email: user.email,
+          updatedAt: now,
+        },
+        createdAt: now,
+      });
+
+      this.persistSync(this.data);
+      return { success: true, message: 'Administrator password updated successfully' };
+    } finally {
+      release();
+    }
   }
 }
 

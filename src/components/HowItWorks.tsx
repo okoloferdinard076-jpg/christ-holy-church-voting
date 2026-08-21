@@ -71,18 +71,18 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
   ];
 
   return (
-    <section className="py-16 bg-white border-b border-slate-200/80" id="how-it-works">
+    <section className="py-16 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-200" id="how-it-works">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider mb-3">
-            <ShieldCheck className="w-4 h-4 text-blue-800" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800/60 text-blue-900 dark:text-blue-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <ShieldCheck className="w-4 h-4 text-blue-800 dark:text-blue-400" />
             <span>Secure 6-Step Process</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-950 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-950 dark:text-white tracking-tight">
             How Voting Works
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 mt-2">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2">
             A transparent, auditable process designed to ensure complete integrity for every single vote.
           </p>
         </div>
@@ -94,34 +94,34 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
             return (
               <div
                 key={step.number}
-                className="bg-slate-50/70 rounded-2xl p-6 border border-slate-200/80 hover:border-blue-900/30 hover:bg-blue-50/30 transition-all flex flex-col justify-between relative group"
+                className="bg-slate-50/70 dark:bg-slate-900/80 rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800 hover:border-blue-900/30 dark:hover:border-slate-700 hover:bg-blue-50/30 dark:hover:bg-slate-800/50 transition-all flex flex-col justify-between relative group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-900 text-white flex items-center justify-center font-black text-lg shadow-sm group-hover:scale-105 transition-transform">
+                    <div className="w-12 h-12 rounded-xl bg-blue-900 dark:bg-slate-800 text-white flex items-center justify-center font-black text-lg shadow-sm group-hover:scale-105 transition-transform border border-transparent dark:border-slate-700">
                       <Icon className="w-6 h-6 text-amber-400" />
                     </div>
-                    <span className="text-3xl font-black text-slate-200 group-hover:text-blue-900/20 transition-colors font-mono">
+                    <span className="text-3xl font-black text-slate-200 dark:text-slate-800 group-hover:text-blue-900/20 dark:group-hover:text-amber-400/20 transition-colors font-mono">
                       0{step.number}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-blue-950 mb-2">
+                  <h3 className="text-base font-bold text-blue-950 dark:text-white mb-2">
                     {step.number}. {step.title}
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                     {step.description}
                   </p>
 
                   {step.number === '4' && (
-                    <div className="mt-3 pt-2.5 border-t border-slate-200/80">
+                    <div className="mt-3 pt-2.5 border-t border-slate-200/80 dark:border-slate-800">
                       <button
                         type="button"
                         onClick={handleCopyAccount}
                         className={`w-full py-1.5 px-2.5 rounded-lg text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                           copiedBankInfo
                             ? 'bg-emerald-600 text-white shadow-2xs'
-                            : 'bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 shadow-2xs'
+                            : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 shadow-2xs'
                         }`}
                       >
                         {copiedBankInfo ? (
@@ -131,7 +131,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                           </>
                         ) : (
                           <>
-                            <Copy className="w-3.5 h-3.5 text-slate-600" />
+                            <Copy className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
                             <span>Copy Account & Bank</span>
                           </>
                         )}
@@ -145,23 +145,23 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
         </div>
 
         {/* Callout Rule Box */}
-        <div className="mt-10 p-5 rounded-2xl bg-amber-50 border border-amber-200/90 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-10 p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200/90 dark:border-amber-700/50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-10 h-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold shrink-0">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-blue-950">
+              <h4 className="text-sm font-bold text-blue-950 dark:text-amber-200">
                 Authoritative Vote Counting Principle
               </h4>
-              <p className="text-xs text-slate-700 mt-0.5">
+              <p className="text-xs text-slate-700 dark:text-slate-300 mt-0.5">
                 Submitting payment details records a <strong>PENDING</strong> transaction. Only after an administrator verifies and approves the bank transfer will the votes be added to the live leaderboard.
               </p>
             </div>
           </div>
           <button
             onClick={onStartVoting}
-            className="px-6 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs tracking-wide shrink-0 shadow-sm cursor-pointer transition-colors"
+            className="px-6 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-950 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-slate-950 font-bold text-xs tracking-wide shrink-0 shadow-sm cursor-pointer transition-colors"
           >
             Cast Your Vote Now
           </button>

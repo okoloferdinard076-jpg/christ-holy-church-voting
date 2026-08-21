@@ -44,8 +44,8 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
   });
 
   // Login Form States
-  const [emailInput, setEmailInput] = useState('medicreceptor@gmail.com');
-  const [passwordInput, setPasswordInput] = useState('CHC2BENIN@YOUTH');
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -188,10 +188,13 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                   <input
                     type="email"
                     required
+                    autoComplete="off"
+                    autoCapitalize="none"
+                    spellCheck="false"
                     value={emailInput}
                     onChange={(e) => setEmailInput(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-900 text-sm font-medium"
-                    placeholder="medicreceptor@gmail.com"
+                    placeholder=""
                   />
                 </div>
 
@@ -202,10 +205,11 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                   <input
                     type="password"
                     required
+                    autoComplete="new-password"
                     value={passwordInput}
                     onChange={(e) => setPasswordInput(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-900 text-sm"
-                    placeholder="••••••••"
+                    placeholder=""
                   />
                 </div>
 
@@ -221,10 +225,11 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                 </div>
               </form>
 
-              <div className="p-3 rounded-xl bg-blue-50/70 border border-blue-100 text-[11px] text-blue-900 space-y-1">
-                <span className="font-bold">Official Admin Credentials:</span>
-                <div>Email: <code className="font-mono font-bold">medicreceptor@gmail.com</code></div>
-                <div>Password: <code className="font-mono font-bold">CHC2BENIN@YOUTH</code></div>
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-start gap-2.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span className="leading-tight">
+                  Restricted access. Only accredited contest presiding officers and church administrators are authorized to log in. All administrative activities and session events are cryptographically recorded in the immutable audit log.
+                </span>
               </div>
             </div>
           </div>

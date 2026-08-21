@@ -63,17 +63,17 @@ export const Hero: React.FC<HeroProps> = ({
           <ChcLogo size="hero" className="p-2 rounded-2xl bg-white/10 ring-1 ring-white/20 backdrop-blur-md shadow-2xl" />
         </div>
 
-        {/* Primary Hero Typography adhering strictly to prompt mandates */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight">
-          WHO WILL WEAR THE CROWN?
+        {/* Primary Hero Typography */}
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-3 leading-tight uppercase">
+          Who Will Wear The Crown?
         </h1>
 
-        <h2 className="text-lg sm:text-2xl font-bold text-amber-400 max-w-3xl mx-auto mb-6 leading-snug">
-          WHO WILL WEAR THE CROWN OF CHRIST HOLY CHURCH INTERNATIONAL NO2 BENIN AMBASSADORSHIP
-        </h2>
+        <p className="text-sm sm:text-lg md:text-xl font-bold text-amber-400 max-w-2xl mx-auto mb-5 tracking-wide">
+          Christ Holy Church International No. 2 Benin Ambassadorship
+        </p>
 
-        <p className="text-base sm:text-lg text-slate-200 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
-          Meet the candidates and support your preferred ambassador. Each vote costs ₦{price}.
+        <p className="text-xs sm:text-base text-slate-200 max-w-xl mx-auto mb-8 font-normal leading-relaxed">
+          Explore the official contestants and cast your votes. Each vote is ₦{price} verified via direct bank transfer.
         </p>
 
         {/* Action Buttons */}

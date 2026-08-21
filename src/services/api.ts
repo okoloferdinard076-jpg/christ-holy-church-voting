@@ -35,9 +35,14 @@ export async function fetchContestData(): Promise<PublicContestData> {
 
 export const fetchPublicData = fetchContestData;
 
-export async function fetchPendingTransactionsCount(): Promise<number> {
+export async function fetchPendingTransactionsCount(token?: string | null): Promise<number> {
+  if (!token) return 0;
   try {
-    const res = await fetch(`${API_BASE}/notifications/pending-count`);
+    const res = await fetch(`${API_BASE}/notifications/pending-count`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (!res.ok) return 0;
     const data = await res.json();
     return typeof data.pendingCount === 'number' ? data.pendingCount : 0;
@@ -326,6 +331,23 @@ export async function fetchAuditLogs(token: string): Promise<AuditLog[]> {
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.error || 'Failed to fetch audit logs');
+  }
+  return res.json();
+}
+
+export async function changeAdminPassword(
+  token: string,
+  currentPassword: string,
+  newPassword: string
+): Promise<{ success: boolean; message: string }> {
+  const res = await fetch(`${API_BASE}/auth/change-password`, {
+    method: 'POST',
+    headers: getAdminHeaders(token),
+    body: JSON.stringify({ currentPassword, newPassword }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to change password');
   }
   return res.json();
 }

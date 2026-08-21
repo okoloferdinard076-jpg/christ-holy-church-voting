@@ -69,6 +69,10 @@ function requireAdmin(req: AuthenticatedRequest, res: Response, next: NextFuncti
   // Basic decoded session token
   try {
     const decoded = JSON.parse(Buffer.from(token, 'base64').toString('utf-8'));
+    if (decoded.exp && decoded.exp < Date.now()) {
+      return res.status(401).json({ error: 'Session expired. Please log in again.' });
+    }
+
     const user = db.getUserById(decoded.id);
     if (!user || (user.role !== 'ADMIN' && user.role !== 'SUPER_ADMIN')) {
       return res.status(403).json({ error: 'Forbidden: Insufficient administrator privileges' });
@@ -99,8 +103,8 @@ router.get('/contest', (req: Request, res: Response) => {
   }
 });
 
-// Real-time Pending Transactions Notification Counter for Admin Portal
-router.get('/notifications/pending-count', (req: Request, res: Response) => {
+// Real-time Pending Transactions Notification Counter for Admin Portal (Protected)
+router.get('/notifications/pending-count', requireAdmin, (req: AuthenticatedRequest, res: Response) => {
   try {
     const pendingCount = db.getPendingTransactionsCount();
     res.json({ pendingCount, timestamp: new Date().toISOString() });
@@ -316,6 +320,22 @@ router.post('/auth/login', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     res.status(500).json({ error: error.message || 'Login failed' });
+  }
+});
+
+// Admin Change Password
+router.post('/auth/change-password', requireAdmin, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ error: 'Both current password and new password are required' });
+    }
+
+    const adminUser = req.adminUser!;
+    const result = await db.changeAdminPassword(adminUser.id, currentPassword, newPassword, adminUser);
+    res.json(result);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message || 'Failed to change password' });
   }
 });
 
