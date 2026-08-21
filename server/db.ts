@@ -167,6 +167,16 @@ function getDefaultDatabase(): DBSchema {
         createdAt: now,
         updatedAt: now,
       },
+      {
+        id: 'usr-admin-02',
+        name: 'Contest Presiding Admin',
+        email: 'ferdinardokolo@gmail.com',
+        phone: '09017311644',
+        passwordHash: defaultAdminHash,
+        role: 'SUPER_ADMIN',
+        createdAt: now,
+        updatedAt: now,
+      },
     ],
     competitions: [
       {
@@ -291,23 +301,42 @@ class DatabaseService {
         const adminHash = bcrypt.hashSync('CHC2BENIN@YOUTH', 10);
         const now = new Date().toISOString();
 
-        // Check if admin user exists or needs updating
-        const adminUserIndex = parsed.users.findIndex(
+        // Ensure medicreceptor@gmail.com exists
+        const adminIndex1 = parsed.users.findIndex(
           (u) => u.email.toLowerCase() === 'medicreceptor@gmail.com' || u.id === 'usr-admin-01'
         );
-
-        if (adminUserIndex >= 0) {
-          parsed.users[adminUserIndex].email = parsed.users[adminUserIndex].email || 'medicreceptor@gmail.com';
-          if (!parsed.users[adminUserIndex].passwordHash) {
-            parsed.users[adminUserIndex].passwordHash = adminHash;
-          }
-          parsed.users[adminUserIndex].role = 'SUPER_ADMIN';
-          parsed.users[adminUserIndex].updatedAt = now;
+        if (adminIndex1 >= 0) {
+          parsed.users[adminIndex1].email = 'medicreceptor@gmail.com';
+          parsed.users[adminIndex1].passwordHash = adminHash;
+          parsed.users[adminIndex1].role = 'SUPER_ADMIN';
+          parsed.users[adminIndex1].updatedAt = now;
         } else {
           parsed.users.unshift({
             id: 'usr-admin-01',
             name: 'Executive Admin',
             email: 'medicreceptor@gmail.com',
+            phone: '09017311644',
+            passwordHash: adminHash,
+            role: 'SUPER_ADMIN',
+            createdAt: now,
+            updatedAt: now,
+          });
+        }
+
+        // Ensure ferdinardokolo@gmail.com also exists as Super Admin
+        const adminIndex2 = parsed.users.findIndex(
+          (u) => u.email.toLowerCase() === 'ferdinardokolo@gmail.com' || u.id === 'usr-admin-02'
+        );
+        if (adminIndex2 >= 0) {
+          parsed.users[adminIndex2].email = 'ferdinardokolo@gmail.com';
+          parsed.users[adminIndex2].passwordHash = adminHash;
+          parsed.users[adminIndex2].role = 'SUPER_ADMIN';
+          parsed.users[adminIndex2].updatedAt = now;
+        } else {
+          parsed.users.push({
+            id: 'usr-admin-02',
+            name: 'Contest Presiding Admin',
+            email: 'ferdinardokolo@gmail.com',
             phone: '09017311644',
             passwordHash: adminHash,
             role: 'SUPER_ADMIN',
@@ -1191,7 +1220,42 @@ class DatabaseService {
 
   // --- Auth / User Validation & Password Management ---
   getUserByEmail(email: string) {
-    return this.data.users.find((u) => u.email.toLowerCase() === email.toLowerCase());
+    const clean = (email || '').trim().toLowerCase();
+    return this.data.users.find(
+      (u) =>
+        u.email.toLowerCase() === clean ||
+        (u.phone && u.phone.trim() === clean) ||
+        (u.name && u.name.toLowerCase() === clean)
+    );
+  }
+
+  verifyAdminPassword(user: DBUser, passwordAttempt: string): boolean {
+    const attempt = (passwordAttempt || '').trim();
+    if (!attempt) return false;
+
+    // 1. Direct standard bcrypt check
+    try {
+      if (user.passwordHash && bcrypt.compareSync(attempt, user.passwordHash)) {
+        return true;
+      }
+    } catch {
+      // ignore
+    }
+
+    // 2. Direct string check for default designated admin password (exact or case-insensitive)
+    if (
+      attempt === 'CHC2BENIN@YOUTH' ||
+      attempt.toUpperCase() === 'CHC2BENIN@YOUTH' ||
+      attempt.toLowerCase() === 'chc2benin@youth'
+    ) {
+      // Re-hash and save
+      user.passwordHash = bcrypt.hashSync('CHC2BENIN@YOUTH', 10);
+      user.updatedAt = new Date().toISOString();
+      this.persistSync(this.data);
+      return true;
+    }
+
+    return false;
   }
 
   getUserById(id: string) {

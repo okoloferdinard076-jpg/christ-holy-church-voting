@@ -283,14 +283,17 @@ router.post('/auth/login', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
-    const user = db.getUserByEmail(email);
+    const cleanEmail = String(email).trim();
+    const cleanPassword = String(password).trim();
+
+    const user = db.getUserByEmail(cleanEmail);
     if (!user || (user.role !== 'ADMIN' && user.role !== 'SUPER_ADMIN')) {
-      return res.status(401).json({ error: 'Invalid administrator credentials' });
+      return res.status(401).json({ error: 'Invalid administrator credentials. Please check your admin email address.' });
     }
 
-    const isValid = bcrypt.compareSync(password, user.passwordHash);
+    const isValid = db.verifyAdminPassword(user, cleanPassword);
     if (!isValid) {
-      return res.status(401).json({ error: 'Invalid administrator credentials' });
+      return res.status(401).json({ error: 'Invalid administrator password. Please check your case-sensitive password.' });
     }
 
     // Token payload

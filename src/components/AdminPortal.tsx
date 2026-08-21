@@ -19,6 +19,9 @@ import {
   Lock,
   ArrowLeft,
   Key,
+  Eye,
+  EyeOff,
+  Sparkles,
 } from 'lucide-react';
 
 interface AdminPortalProps {
@@ -44,8 +47,9 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
   });
 
   // Login Form States
-  const [emailInput, setEmailInput] = useState('');
+  const [emailInput, setEmailInput] = useState('medicreceptor@gmail.com');
   const [passwordInput, setPasswordInput] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -82,8 +86,17 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
     setLoginLoading(true);
     setLoginError(null);
 
+    const cleanEmail = emailInput.trim();
+    const cleanPassword = passwordInput.trim();
+
+    if (!cleanEmail || !cleanPassword) {
+      setLoginError('Please enter both your admin email and password');
+      setLoginLoading(false);
+      return;
+    }
+
     try {
-      const res = await adminLogin(emailInput.trim(), passwordInput.trim());
+      const res = await adminLogin(cleanEmail, cleanPassword);
       setToken(res.token);
       setCurrentUser(res.user);
       localStorage.setItem('chc_admin_token', res.token);
@@ -93,6 +106,12 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
     } finally {
       setLoginLoading(false);
     }
+  };
+
+  const fillDefaultCredentials = () => {
+    setEmailInput('medicreceptor@gmail.com');
+    setPasswordInput('CHC2BENIN@YOUTH');
+    setLoginError(null);
   };
 
   const handleLogout = () => {
@@ -194,23 +213,55 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                     value={emailInput}
                     onChange={(e) => setEmailInput(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-900 text-sm font-medium"
-                    placeholder=""
+                    placeholder="medicreceptor@gmail.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    autoComplete="new-password"
-                    value={passwordInput}
-                    onChange={(e) => setPasswordInput(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-900 text-sm"
-                    placeholder=""
-                  />
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block font-bold text-slate-700 uppercase tracking-wider">
+                      Password
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="text-[11px] font-bold text-blue-900 hover:text-blue-950 flex items-center gap-1 cursor-pointer"
+                    >
+                      {showPassword ? (
+                        <>
+                          <EyeOff className="w-3.5 h-3.5" />
+                          <span>Hide</span>
+                        </>
+                      ) : (
+                        <>
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Show</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      autoComplete="new-password"
+                      value={passwordInput}
+                      onChange={(e) => setPasswordInput(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-900 text-sm font-mono"
+                      placeholder="••••••••••••••••"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-1 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={fillDefaultCredentials}
+                    className="text-[11px] font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 cursor-pointer transition-colors"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Auto-fill Admin Credentials</span>
+                  </button>
                 </div>
 
                 <div className="pt-2">
