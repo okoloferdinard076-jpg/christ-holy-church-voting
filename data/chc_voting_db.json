@@ -1,0 +1,188 @@
+{
+  "users": [
+    {
+      "id": "usr-admin-01",
+      "name": "Executive Admin",
+      "email": "medicreceptor@gmail.com",
+      "phone": "09017311644",
+      "passwordHash": "$2b$10$lCIq7dzcV99dzhAAkiukveshHf.1fe6udS6Vh.KSX6un11zlR.ctq",
+      "role": "SUPER_ADMIN",
+      "createdAt": "2026-08-21T14:32:09.193Z",
+      "updatedAt": "2026-08-21T14:32:09.193Z"
+    }
+  ],
+  "competitions": [
+    {
+      "id": "comp-chc-benin-01",
+      "name": "WHO WILL WEAR THE CROWN OF CHRIST HOLY CHURCH INTERNATIONAL NO2 BENIN AMBASSADORSHIP",
+      "slug": "who-will-wear-the-crown-chc-no2-benin",
+      "description": "Official ambassadorial contest organized by Christ Holy Church International No. 2 Benin. Support your preferred ambassador with verified votes.",
+      "image": "/logo.svg",
+      "startDate": "2026-08-01T00:00:00.000Z",
+      "endDate": "2026-10-31T23:59:59.000Z",
+      "votePrice": 50,
+      "status": "ACTIVE",
+      "votingRules": "1. Votes are purchased at ₦50 per vote via direct bank transfer to the official designated church account.\n2. Each vote transaction generates a unique payment reference.\n3. After making your transfer, submit your transaction reference, contact info, and receipt.\n4. Votes are counted strictly upon administrator verification and approval.",
+      "createdAt": "2026-08-21T14:32:09.193Z",
+      "updatedAt": "2026-08-21T14:32:09.193Z"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "cand-01",
+      "competitionId": "comp-chc-benin-01",
+      "name": "Amarachi Akunne",
+      "slug": "amarachi-akunne",
+      "state": "Imo State",
+      "biography": "Dedicated youth leader, dedicated choir chorister, and passionate ambassador candidate representing Imo State in Christ Holy Church International No. 2 Benin.",
+      "image": "",
+      "status": "ACTIVE",
+      "sortOrder": 1,
+      "createdAt": "2026-08-21T14:32:09.193Z",
+      "updatedAt": "2026-08-21T14:32:09.193Z"
+    },
+    {
+      "id": "cand-02",
+      "competitionId": "comp-chc-benin-01",
+      "name": "David Okolo",
+      "slug": "david-okolo",
+      "state": "Edo State",
+      "biography": "Vibrant church worker, community organizer, and steadfast servant representing Edo State in the ambassadorial crown contest.",
+      "image": "",
+      "status": "ACTIVE",
+      "sortOrder": 2,
+      "createdAt": "2026-08-21T14:32:09.193Z",
+      "updatedAt": "2026-08-21T14:32:09.193Z"
+    },
+    {
+      "id": "cand-03",
+      "competitionId": "comp-chc-benin-01",
+      "name": "Onyinyechi Chilokwu",
+      "slug": "onyinyechi-chilokwu",
+      "state": "Anambra State",
+      "biography": "Committed scripture teacher, women fellowship advocate, and inspiring ambassadorial candidate representing Anambra State.",
+      "image": "",
+      "status": "ACTIVE",
+      "sortOrder": 3,
+      "createdAt": "2026-08-21T14:32:09.193Z",
+      "updatedAt": "2026-08-21T14:32:09.193Z"
+    },
+    {
+      "id": "cand-04",
+      "competitionId": "comp-chc-benin-01",
+      "name": "Chiagozie Okafor",
+      "slug": "chiagozie-okafor",
+      "state": "Enugu State",
+      "biography": "Dynamic technical and media department contributor, dedicated evangelism coordinator representing Enugu State.",
+      "image": "",
+      "status": "ACTIVE",
+      "sortOrder": 4,
+      "createdAt": "2026-08-21T14:32:09.193Z",
+      "updatedAt": "2026-08-21T14:32:09.193Z"
+    }
+  ],
+  "voting_transactions": [
+    {
+      "id": "tx-1787327346361-8f1b80",
+      "paymentReference": "VOTE-5F28A872",
+      "competitionId": "comp-chc-benin-01",
+      "candidateId": "cand-01",
+      "voterName": "",
+      "voterEmail": "",
+      "voterPhone": "",
+      "voteQuantity": 1,
+      "expectedAmount": 50,
+      "amountTransferred": 0,
+      "status": "PENDING",
+      "createdAt": "2026-08-21T15:49:06.361Z",
+      "updatedAt": "2026-08-21T15:49:06.361Z"
+    },
+    {
+      "id": "tx-1787327353208-dd5d06",
+      "paymentReference": "VOTE-12EC71F2",
+      "competitionId": "comp-chc-benin-01",
+      "candidateId": "cand-01",
+      "voterName": "",
+      "voterEmail": "",
+      "voterPhone": "",
+      "voteQuantity": 10,
+      "expectedAmount": 500,
+      "amountTransferred": 0,
+      "status": "PENDING",
+      "createdAt": "2026-08-21T15:49:13.208Z",
+      "updatedAt": "2026-08-21T15:49:13.208Z"
+    },
+    {
+      "id": "tx-1787327365238-800e1b",
+      "paymentReference": "VOTE-EAF2FC3C",
+      "competitionId": "comp-chc-benin-01",
+      "candidateId": "cand-01",
+      "voterName": "",
+      "voterEmail": "",
+      "voterPhone": "",
+      "voteQuantity": 10,
+      "expectedAmount": 500,
+      "amountTransferred": 0,
+      "status": "PENDING",
+      "createdAt": "2026-08-21T15:49:25.238Z",
+      "updatedAt": "2026-08-21T15:49:25.238Z"
+    },
+    {
+      "id": "tx-1787327372827-fec1e5",
+      "paymentReference": "VOTE-AF1B2B45",
+      "competitionId": "comp-chc-benin-01",
+      "candidateId": "cand-01",
+      "voterName": "",
+      "voterEmail": "",
+      "voterPhone": "",
+      "voteQuantity": 10,
+      "expectedAmount": 500,
+      "amountTransferred": 0,
+      "status": "PENDING",
+      "createdAt": "2026-08-21T15:49:32.827Z",
+      "updatedAt": "2026-08-21T15:49:32.827Z"
+    },
+    {
+      "id": "tx-1787327387529-597020",
+      "paymentReference": "VOTE-D062ECF2",
+      "competitionId": "comp-chc-benin-01",
+      "candidateId": "cand-01",
+      "voterName": "",
+      "voterEmail": "",
+      "voterPhone": "",
+      "voteQuantity": 10,
+      "expectedAmount": 500,
+      "amountTransferred": 0,
+      "status": "PENDING",
+      "createdAt": "2026-08-21T15:49:47.529Z",
+      "updatedAt": "2026-08-21T15:49:47.529Z"
+    }
+  ],
+  "vote_ledger": [],
+  "payment_settings": {
+    "id": "sett-01",
+    "bankName": "OPAY",
+    "accountName": "Okonkwo Precious",
+    "accountNumber": "9017311644",
+    "votePrice": 50,
+    "paymentInstructions": "Transfer the exact amount shown below to the designated OPAY account and submit your payment details with transfer receipt for verification.",
+    "updatedBy": "usr-admin-01",
+    "updatedAt": "2026-08-21T14:32:09.193Z"
+  },
+  "audit_logs": [
+    {
+      "id": "log-seed-01",
+      "actorUserId": "usr-admin-01",
+      "actorName": "System Setup",
+      "action": "SYSTEM_INITIALIZATION",
+      "entityType": "SYSTEM",
+      "entityId": "SYSTEM",
+      "metadata": {
+        "event": "WHO WILL WEAR THE CROWN OF CHRIST HOLY CHURCH INTERNATIONAL NO2 BENIN AMBASSADORSHIP initialized",
+        "candidatesSeeded": 4,
+        "votePrice": 50
+      },
+      "createdAt": "2026-08-21T14:32:09.193Z"
+    }
+  ]
+}
