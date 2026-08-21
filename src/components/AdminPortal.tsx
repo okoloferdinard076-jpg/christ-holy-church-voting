@@ -47,8 +47,8 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
   });
 
   // Login Form States
-  const [emailInput, setEmailInput] = useState('medicreceptor@gmail.com');
-  const [passwordInput, setPasswordInput] = useState('CHC2BENIN@YOUTH');
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -81,15 +81,16 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
     }
   }, [token]);
 
-  const performLogin = async (email: string, pass: string) => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     setLoginLoading(true);
     setLoginError(null);
 
-    const cleanEmail = email.trim();
-    const cleanPassword = pass.trim();
+    const cleanEmail = emailInput.trim();
+    const cleanPassword = passwordInput.trim();
 
     if (!cleanEmail || !cleanPassword) {
-      setLoginError('Please enter both your admin email and password');
+      setLoginError('Please enter both your administrator email and password');
       setLoginLoading(false);
       return;
     }
@@ -105,23 +106,6 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
     } finally {
       setLoginLoading(false);
     }
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await performLogin(emailInput, passwordInput);
-  };
-
-  const loginWithPreset = async (email: string) => {
-    setEmailInput(email);
-    setPasswordInput('CHC2BENIN@YOUTH');
-    await performLogin(email, 'CHC2BENIN@YOUTH');
-  };
-
-  const fillDefaultCredentials = () => {
-    setEmailInput('medicreceptor@gmail.com');
-    setPasswordInput('CHC2BENIN@YOUTH');
-    setLoginError(null);
   };
 
   const handleLogout = () => {
@@ -212,18 +196,18 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
               <form onSubmit={handleLogin} className="space-y-4 text-xs">
                 <div>
                   <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Official Admin Email
+                    Administrator Email
                   </label>
                   <input
                     type="email"
                     required
-                    autoComplete="off"
+                    autoComplete="username"
                     autoCapitalize="none"
                     spellCheck="false"
                     value={emailInput}
                     onChange={(e) => setEmailInput(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-900 text-sm font-medium"
-                    placeholder="medicreceptor@gmail.com"
+                    placeholder="name@example.com"
                   />
                 </div>
 
@@ -254,38 +238,12 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                     <input
                       type={showPassword ? 'text' : 'password'}
                       required
-                      autoComplete="new-password"
+                      autoComplete="current-password"
                       value={passwordInput}
                       onChange={(e) => setPasswordInput(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-900 text-sm font-mono"
                       placeholder="••••••••••••••••"
                     />
-                  </div>
-                </div>
-
-                <div className="pt-1 space-y-2">
-                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                    Quick Sign-In As:
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <button
-                      type="button"
-                      disabled={loginLoading}
-                      onClick={() => loginWithPreset('medicreceptor@gmail.com')}
-                      className="px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-950 text-left transition-colors cursor-pointer disabled:opacity-50"
-                    >
-                      <div className="font-bold text-xs truncate">medicreceptor@gmail.com</div>
-                      <div className="text-[10px] text-blue-700 font-semibold">1-Click Sign In &rarr;</div>
-                    </button>
-                    <button
-                      type="button"
-                      disabled={loginLoading}
-                      onClick={() => loginWithPreset('ferdinardokolo@gmail.com')}
-                      className="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-950 text-left transition-colors cursor-pointer disabled:opacity-50"
-                    >
-                      <div className="font-bold text-xs truncate">ferdinardokolo@gmail.com</div>
-                      <div className="text-[10px] text-amber-700 font-semibold">1-Click Sign In &rarr;</div>
-                    </button>
                   </div>
                 </div>
 
@@ -296,7 +254,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                     className="w-full py-3 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     <Key className="w-4 h-4 text-amber-400" />
-                    <span>{loginLoading ? 'Authenticating...' : 'Sign In with Entered Credentials'}</span>
+                    <span>{loginLoading ? 'Authenticating...' : 'Sign In as Administrator'}</span>
                   </button>
                 </div>
               </form>

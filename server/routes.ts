@@ -72,7 +72,10 @@ function requireAdmin(req: AuthenticatedRequest, res: Response, next: NextFuncti
       return res.status(401).json({ error: 'Session expired. Please log in again.' });
     }
 
-    const user = db.getUserById(decoded.id);
+    let user = db.getUserById(decoded.id);
+    if (!user && decoded.email) {
+      user = db.getUserByEmail(decoded.email);
+    }
     if (!user || (user.role !== 'ADMIN' && user.role !== 'SUPER_ADMIN')) {
       return res.status(403).json({ error: 'Forbidden: Insufficient administrator privileges' });
     }
