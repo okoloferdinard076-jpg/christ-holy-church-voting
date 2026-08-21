@@ -5,7 +5,6 @@ import fs from 'fs';
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import { db } from './db.js';
-import { sendVoteStatusEmail } from './emailService.js';
 
 const router = express.Router();
 
@@ -174,10 +173,6 @@ router.post('/vote/submit-proof', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Voter full name is required' });
     }
 
-    if ((!voterEmail || !voterEmail.trim()) && (!voterPhone || !voterPhone.trim())) {
-      return res.status(400).json({ error: 'Either email or phone number is required for transaction tracking' });
-    }
-
     if (!amountTransferred || Number(amountTransferred) <= 0) {
       return res.status(400).json({ error: 'Amount transferred must be specified' });
     }
@@ -185,8 +180,8 @@ router.post('/vote/submit-proof', async (req: Request, res: Response) => {
     const updatedTx = await db.submitPaymentProof({
       paymentReference,
       voterName,
-      voterEmail,
-      voterPhone,
+      voterEmail: voterEmail?.trim() || '',
+      voterPhone: voterPhone?.trim() || '',
       amountTransferred: Number(amountTransferred),
       bankTransactionId,
       receiptUrl,
@@ -374,28 +369,10 @@ router.post('/admin/payments/:id/approve', requireAdmin, async (req: Authenticat
     const adminUser = req.adminUser!;
 
     const result = await db.approveTransaction(id, adminUser);
-    const tx = result.transaction;
-    const candidate = db.getCandidateById(tx.candidateId);
-
-    // Send email notification to voter if email exists
-    if (tx.voterEmail && tx.voterEmail.includes('@')) {
-      sendVoteStatusEmail({
-        to: tx.voterEmail,
-        recipientName: tx.voterName,
-        type: 'APPROVED',
-        paymentReference: tx.paymentReference,
-        candidateName: candidate?.name || result.candidateName || 'Contestant',
-        candidateState: candidate?.state || 'CHC No. 2 Benin',
-        voteQuantity: result.votesAdded,
-        expectedAmount: tx.expectedAmount,
-        approvedAt: tx.approvedAt,
-        appUrl: req.protocol + '://' + req.get('host'),
-      }).catch((err) => console.error('[Email Trigger Error - Approval]:', err));
-    }
 
     res.json({
       success: true,
-      message: `Transaction ${result.transaction.paymentReference} approved successfully! ${result.votesAdded} votes counted for ${result.candidateName}. Email confirmation dispatched to ${tx.voterEmail || 'voter'}.`,
+      message: `Transaction ${result.transaction.paymentReference} approved successfully! ${result.votesAdded} votes counted for ${result.candidateName}.`,
       result,
     });
   } catch (error: any) {
@@ -412,29 +389,10 @@ router.post('/admin/payments/:id/reject', requireAdmin, async (req: Authenticate
 
     const rejectionReason = (reason && reason.trim()) || 'Payment transfer could not be verified in the church bank account records.';
     const result = await db.rejectTransaction(id, rejectionReason, adminUser);
-    const tx = result.transaction;
-    const candidate = db.getCandidateById(tx.candidateId);
-
-    // Send email notification to voter if email exists
-    if (tx.voterEmail && tx.voterEmail.includes('@')) {
-      sendVoteStatusEmail({
-        to: tx.voterEmail,
-        recipientName: tx.voterName,
-        type: 'REJECTED',
-        paymentReference: tx.paymentReference,
-        candidateName: candidate?.name || 'Contestant',
-        candidateState: candidate?.state || 'CHC No. 2 Benin',
-        voteQuantity: tx.voteQuantity,
-        expectedAmount: tx.expectedAmount,
-        rejectionReason: rejectionReason,
-        rejectedAt: tx.rejectedAt,
-        appUrl: req.protocol + '://' + req.get('host'),
-      }).catch((err) => console.error('[Email Trigger Error - Rejection]:', err));
-    }
 
     res.json({
       success: true,
-      message: `Transaction ${result.transaction.paymentReference} has been rejected. Explanatory email sent to ${tx.voterEmail || 'voter'}.`,
+      message: `Transaction ${result.transaction.paymentReference} has been marked as rejected.`,
       result,
     });
   } catch (error: any) {

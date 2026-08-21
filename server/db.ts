@@ -523,33 +523,49 @@ class DatabaseService {
     const release = await dbMutex.acquire();
     try {
       const cleanRef = params.paymentReference.trim().toUpperCase();
-      const txIndex = this.data.voting_transactions.findIndex(
+      let txIndex = this.data.voting_transactions.findIndex(
         (t) => t.paymentReference.toUpperCase() === cleanRef
       );
-
-      if (txIndex === -1) {
-        throw new Error('Invalid or non-existent payment reference');
-      }
-
-      const tx = this.data.voting_transactions[txIndex];
-      if (tx.status !== 'PENDING') {
-        throw new Error(`Cannot modify transaction with status "${tx.status}"`);
-      }
-
-      if (!params.voterName || !params.voterName.trim()) {
-        throw new Error('Full Name is required');
-      }
-
-      if ((!params.voterEmail || !params.voterEmail.trim()) && (!params.voterPhone || !params.voterPhone.trim())) {
-        throw new Error('Either Email or Phone Number is required for transaction verification');
-      }
 
       const amountTransferred = Number(params.amountTransferred);
       if (isNaN(amountTransferred) || amountTransferred <= 0) {
         throw new Error('Amount transferred must be a valid positive amount');
       }
 
+      if (!params.voterName || !params.voterName.trim()) {
+        throw new Error('Full Name is required');
+      }
+
       const now = new Date().toISOString();
+
+      if (txIndex === -1) {
+        // Auto-register transaction if reference was generated client-side
+        const fallbackCandidate = this.data.candidates[0];
+        const votePrice = this.data.payment_settings?.votePrice || 50;
+        const calcVotes = Math.max(1, Math.floor(amountTransferred / votePrice));
+        const newCreatedTx: DBVotingTransaction = {
+          id: `tx-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`,
+          paymentReference: cleanRef,
+          competitionId: this.data.competitions[0]?.id || 'comp-chc-benin-01',
+          candidateId: fallbackCandidate?.id || 'cand-01',
+          voterName: params.voterName.trim(),
+          voterEmail: params.voterEmail?.trim() || '',
+          voterPhone: params.voterPhone?.trim() || '',
+          voteQuantity: calcVotes,
+          expectedAmount: amountTransferred,
+          amountTransferred: amountTransferred,
+          status: 'PENDING',
+          createdAt: now,
+          updatedAt: now,
+        };
+        this.data.voting_transactions.push(newCreatedTx);
+        txIndex = this.data.voting_transactions.length - 1;
+      }
+
+      const tx = this.data.voting_transactions[txIndex];
+      if (tx.status !== 'PENDING') {
+        throw new Error(`Cannot modify transaction with status "${tx.status}"`);
+      }
 
       tx.voterName = params.voterName.trim();
       tx.voterEmail = params.voterEmail?.trim() || '';

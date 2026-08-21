@@ -800,11 +800,6 @@ export const PaymentReviews: React.FC<PaymentReviewsProps> = ({
                   <div className="font-bold">
                     ✅ Approved on {new Date(selectedTx.approvedAt).toLocaleString()} by Admin ({selectedTx.approvedByName || selectedTx.approvedBy})
                   </div>
-                  {selectedTx.voterEmail && (
-                    <div className="text-[10px] text-emerald-700 flex items-center gap-1">
-                      <Mail className="w-3 h-3" /> Confirmation email sent to {selectedTx.voterEmail}
-                    </div>
-                  )}
                 </div>
               )}
               {selectedTx.rejectedAt && (
@@ -813,11 +808,6 @@ export const PaymentReviews: React.FC<PaymentReviewsProps> = ({
                     ⚠️ Rejected on {new Date(selectedTx.rejectedAt).toLocaleString()} by Admin ({selectedTx.rejectedByName || selectedTx.rejectedBy})
                   </div>
                   <div className="font-semibold text-red-900">Reason: {selectedTx.rejectionReason}</div>
-                  {selectedTx.voterEmail && (
-                    <div className="text-[10px] text-red-700 flex items-center gap-1">
-                      <Mail className="w-3 h-3" /> Explanatory email sent to {selectedTx.voterEmail}
-                    </div>
-                  )}
                 </div>
               )}
             </div>
@@ -884,14 +874,6 @@ export const PaymentReviews: React.FC<PaymentReviewsProps> = ({
               <strong className="text-blue-950">{selectedTx.voteQuantity} votes</strong> to{' '}
               <strong className="text-blue-950">{selectedTx.candidateName}</strong> in the authoritative vote ledger.
             </p>
-            {selectedTx.voterEmail && (
-              <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200 text-[11px] text-blue-900 text-left flex items-start gap-2">
-                <Mail className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
-                <span>
-                  An official confirmation email will be automatically sent to <strong>{selectedTx.voterEmail}</strong>.
-                </span>
-              </div>
-            )}
             <div className="grid grid-cols-2 gap-3 pt-2">
               <button
                 disabled={actionLoading}
@@ -905,14 +887,14 @@ export const PaymentReviews: React.FC<PaymentReviewsProps> = ({
                 onClick={handleApprove}
                 className="py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs shadow-md disabled:opacity-50 cursor-pointer"
               >
-                {actionLoading ? 'Approving & Sending Email...' : 'Approve & Notify'}
+                {actionLoading ? 'Approving Votes...' : 'Approve Payment'}
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Rejection Modal with Structured Reasons & Email Notification Notice */}
+      {/* Rejection Modal with Structured Reasons */}
       {showRejectModal && selectedTx && (
         <div className="fixed inset-0 z-60 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
@@ -922,7 +904,7 @@ export const PaymentReviews: React.FC<PaymentReviewsProps> = ({
             </div>
 
             <p className="text-xs text-slate-600">
-              Please specify the reason for rejection. This reason will be recorded in the audit log and sent directly in an email to the voter explaining why their vote was not approved.
+              Please specify the reason for rejection. This reason will be recorded in the audit log for record-keeping and status lookup.
             </p>
 
             <div className="space-y-3 text-xs">
@@ -943,7 +925,7 @@ export const PaymentReviews: React.FC<PaymentReviewsProps> = ({
               {rejectionReason === 'Other' && (
                 <div>
                   <label className="block text-[11px] font-bold text-slate-600 mb-1">
-                    Custom Explanation for Voter:
+                    Custom Explanation:
                   </label>
                   <textarea
                     rows={3}
@@ -952,19 +934,6 @@ export const PaymentReviews: React.FC<PaymentReviewsProps> = ({
                     placeholder="Enter detailed reason explaining why payment was not verified..."
                     className="w-full p-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-red-500"
                   />
-                </div>
-              )}
-
-              {selectedTx.voterEmail ? (
-                <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 flex items-start gap-2">
-                  <Mail className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-                  <span>
-                    Voter email (<strong>{selectedTx.voterEmail}</strong>) will receive this explanation with support contact instructions.
-                  </span>
-                </div>
-              ) : (
-                <div className="p-2.5 rounded-xl bg-slate-100 text-[11px] text-slate-600">
-                  Note: No voter email on file. Reason will be visible when voter checks status with reference code: <strong>{selectedTx.paymentReference}</strong>.
                 </div>
               )}
             </div>
@@ -982,7 +951,7 @@ export const PaymentReviews: React.FC<PaymentReviewsProps> = ({
                 onClick={handleReject}
                 className="py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs shadow-md disabled:opacity-50 cursor-pointer"
               >
-                {actionLoading ? 'Rejecting & Sending Email...' : 'Reject & Notify'}
+                {actionLoading ? 'Rejecting...' : 'Reject Payment'}
               </button>
             </div>
           </div>

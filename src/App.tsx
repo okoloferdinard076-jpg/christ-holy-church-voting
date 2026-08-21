@@ -115,6 +115,7 @@ export default function App() {
   const [selectedState, setSelectedState] = useState('ALL');
 
   // Modals & Subviews
+  const [isVoteModalOpen, setIsVoteModalOpen] = useState(false);
   const [votingCandidate, setVotingCandidate] = useState<Candidate | null>(null);
   const [profileCandidate, setProfileCandidate] = useState<Candidate | null>(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -190,11 +191,8 @@ export default function App() {
   });
 
   const handleStartVoting = (candidate?: Candidate) => {
-    if (candidate) {
-      setVotingCandidate(candidate);
-    } else if (candidates.length > 0) {
-      setVotingCandidate(candidates[0]);
-    }
+    setVotingCandidate(candidate || (candidates.length > 0 ? candidates[0] : null));
+    setIsVoteModalOpen(true);
   };
 
   const handleViewStatusWithRef = (ref: string) => {
@@ -335,14 +333,17 @@ export default function App() {
       />
 
       {/* Voting Workflow Modal */}
-      {votingCandidate && (
+      {isVoteModalOpen && (
         <VotingModal
           isOpen={true}
           candidate={votingCandidate}
           initialCandidate={votingCandidate}
           candidates={candidates}
           paymentSettings={paymentSettings}
-          onClose={() => setVotingCandidate(null)}
+          onClose={() => {
+            setIsVoteModalOpen(false);
+            setVotingCandidate(null);
+          }}
           onVoteSubmitted={() => {
             loadData();
             refreshPendingCount();
