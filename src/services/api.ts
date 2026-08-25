@@ -278,6 +278,25 @@ export async function updatePaymentSettings(
   return res.json();
 }
 
+export async function uploadCandidatePhoto(
+  file: File
+): Promise<{ success: boolean; photoUrl: string; filename: string }> {
+  const formData = new FormData();
+  formData.append('photo', file);
+
+  const res = await fetch(`${API_BASE}/upload/candidate-photo`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to upload contestant photo');
+  }
+
+  return res.json();
+}
+
 export async function createCandidate(
   token: string,
   candidateData: { name: string; state: string; biography: string; image?: string; sortOrder?: number }
@@ -307,6 +326,21 @@ export async function updateCandidate(
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.error || 'Failed to update candidate');
+  }
+  return res.json();
+}
+
+export async function deleteCandidate(
+  token: string,
+  candidateId: string
+): Promise<{ success: boolean; message: string }> {
+  const res = await fetch(`${API_BASE}/admin/candidates/${candidateId}`, {
+    method: 'DELETE',
+    headers: getAdminHeaders(token),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to delete candidate');
   }
   return res.json();
 }

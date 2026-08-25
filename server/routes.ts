@@ -262,13 +262,49 @@ router.post('/upload/receipt', (req: Request, res: Response) => {
   });
 });
 
-// 7. Serve Receipt File
+// 7. Upload Candidate Photo (Protected or Direct)
+router.post('/upload/candidate-photo', (req: Request, res: Response) => {
+  upload.single('photo')(req, res, (err: any) => {
+    if (err instanceof multer.MulterError) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'Photo file too large. Maximum size allowed is 5MB.' });
+      }
+      return res.status(400).json({ error: `Upload error: ${err.message}` });
+    } else if (err) {
+      return res.status(400).json({ error: err.message || 'Photo upload failed' });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'No photo file was uploaded' });
+    }
+
+    const photoUrl = `/api/uploads/${req.file.filename}`;
+    res.json({
+      success: true,
+      photoUrl,
+      filename: req.file.filename,
+    });
+  });
+});
+
+// 8. Serve Receipt and Upload Files
 router.get('/receipts/:filename', (req: Request, res: Response) => {
   const filename = path.basename(req.params.filename);
   const filePath = path.join(UPLOADS_DIR, filename);
 
   if (!fs.existsSync(filePath)) {
     return res.status(404).send('Receipt file not found');
+  }
+
+  res.sendFile(filePath);
+});
+
+router.get('/uploads/:filename', (req: Request, res: Response) => {
+  const filename = path.basename(req.params.filename);
+  const filePath = path.join(UPLOADS_DIR, filename);
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send('Uploaded file not found');
   }
 
   res.sendFile(filePath);
@@ -505,6 +541,20 @@ router.put('/admin/candidates/:id', requireAdmin, async (req: AuthenticatedReque
     });
   } catch (error: any) {
     res.status(400).json({ error: error.message || 'Failed to update candidate' });
+  }
+});
+
+router.delete('/admin/candidates/:id', requireAdmin, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await db.deleteCandidate(id, req.adminUser!);
+    res.json({
+      success: true,
+      message: 'Candidate deleted successfully.',
+      result,
+    });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message || 'Failed to delete candidate' });
   }
 });
 

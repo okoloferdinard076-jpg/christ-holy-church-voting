@@ -177,6 +177,16 @@ function getDefaultDatabase(): DBSchema {
         createdAt: now,
         updatedAt: now,
       },
+      {
+        id: 'usr-admin-03',
+        name: 'Precious Okonkwo',
+        email: 'preciousokonkwo@gmail.com',
+        phone: '09017311644',
+        passwordHash: defaultAdminHash,
+        role: 'SUPER_ADMIN',
+        createdAt: now,
+        updatedAt: now,
+      },
     ],
     competitions: [
       {
@@ -200,11 +210,11 @@ function getDefaultDatabase(): DBSchema {
       {
         id: 'cand-01',
         competitionId,
-        name: 'Amarachi Akunne',
-        slug: 'amarachi-akunne',
-        state: 'Imo State',
+        name: 'Bro David Okolo',
+        slug: 'bro-david-okolo',
+        state: 'Edo Contestant',
         biography:
-          'Vibrant youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Committed to praise ministry, youth fellowship, and ambassadorial excellence representing Imo State.',
+          'Dedicated youth member and passionate choir chorister at Christ Holy Church International No. 2 Benin. Committed to music ministry, spiritual growth, and ambassadorial excellence representing Edo Contestant.',
         image: '',
         status: 'ACTIVE',
         sortOrder: 1,
@@ -214,42 +224,14 @@ function getDefaultDatabase(): DBSchema {
       {
         id: 'cand-02',
         competitionId,
-        name: 'David Okolo',
-        slug: 'david-okolo',
-        state: 'Edo State',
+        name: 'Bro Chiagozie Okafor',
+        slug: 'bro-chiagozie-okafor',
+        state: 'Yoruba Contestant',
         biography:
-          'Active youth member and passionate choir chorister at Christ Holy Church International No. 2 Benin. Dedicated to music ministry, youth leadership, and spiritual growth representing Edo State.',
+          'Dynamic youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Passionate about music evangelism, youth development, and ambassadorial service representing Yoruba Contestant.',
         image: '',
         status: 'ACTIVE',
         sortOrder: 2,
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        id: 'cand-03',
-        competitionId,
-        name: 'Onyinyechi Chilokwu',
-        slug: 'onyinyechi-chilokwu',
-        state: 'Anambra State',
-        biography:
-          'Devoted youth member and inspiring choir chorister at Christ Holy Church International No. 2 Benin. Committed to worship ministry, church advancement, and godly values representing Anambra State.',
-        image: '',
-        status: 'ACTIVE',
-        sortOrder: 3,
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        id: 'cand-04',
-        competitionId,
-        name: 'Chiagozie Okafor',
-        slug: 'chiagozie-okafor',
-        state: 'Enugu State',
-        biography:
-          'Dynamic youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Passionate about music evangelism, youth development, and service representing Enugu State.',
-        image: '',
-        status: 'ACTIVE',
-        sortOrder: 4,
         createdAt: now,
         updatedAt: now,
       },
@@ -1097,7 +1079,7 @@ class DatabaseService {
         slug,
         state: cand.state.trim(),
         biography: cand.biography.trim(),
-        image: cand.image?.trim() || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+        image: cand.image?.trim() || '',
         status: 'ACTIVE',
         sortOrder: cand.sortOrder || this.data.candidates.length + 1,
         createdAt: now,
@@ -1119,6 +1101,34 @@ class DatabaseService {
 
       this.persistSync(this.data);
       return newCand;
+    } finally {
+      release();
+    }
+  }
+
+  async deleteCandidate(candidateId: string, adminUser: { id: string; name: string }) {
+    const release = await dbMutex.acquire();
+    try {
+      const idx = this.data.candidates.findIndex((c) => c.id === candidateId);
+      if (idx === -1) throw new Error('Candidate not found');
+
+      const deletedCandidate = this.data.candidates[idx];
+      this.data.candidates.splice(idx, 1);
+
+      const now = new Date().toISOString();
+      this.data.audit_logs.push({
+        id: `log-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`,
+        actorUserId: adminUser.id,
+        actorName: adminUser.name,
+        action: 'CANDIDATE_DELETED',
+        entityType: 'CANDIDATE',
+        entityId: candidateId,
+        previousValue: JSON.stringify(deletedCandidate),
+        createdAt: now,
+      });
+
+      this.persistSync(this.data);
+      return { success: true, deletedCandidate };
     } finally {
       release();
     }
@@ -1240,6 +1250,10 @@ class DatabaseService {
 
     if (clean.includes('ferdinard') || clean.includes('okolo')) {
       return this.data.users.find((u) => u.email.toLowerCase().includes('ferdinard')) || this.data.users[0];
+    }
+
+    if (clean.includes('precious') || clean.includes('okonkwo')) {
+      return this.data.users.find((u) => u.email.toLowerCase().includes('precious')) || this.data.users[0];
     }
 
     if (clean === 'admin' || clean === 'superadmin' || clean === 'administrator' || clean === 'chcadmin') {

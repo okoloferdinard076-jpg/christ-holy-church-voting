@@ -5,20 +5,30 @@
       "name": "Executive Admin",
       "email": "medicreceptor@gmail.com",
       "phone": "09017311644",
-      "passwordHash": "$2b$10$75AZTrpi2ojzDhIteKGzd.2nGcok7XMIlcKCZ68ZqfKsUMm2ZO2ZG",
+      "passwordHash": "$2b$10$sioGqUDZrNKQ/qhPFQalPOD/bX4f2wFUSldIANlmprWDfeCU94NNe",
       "role": "SUPER_ADMIN",
       "createdAt": "2026-08-21T14:32:09.193Z",
-      "updatedAt": "2026-08-21T21:16:48.522Z"
+      "updatedAt": "2026-08-25T20:44:34.275Z"
     },
     {
       "id": "usr-admin-02",
       "name": "Contest Presiding Admin",
       "email": "ferdinardokolo@gmail.com",
       "phone": "09017311644",
-      "passwordHash": "$2b$10$y4zcEMCgT.zsYSouzaiSaeQJrRycuKbCTD5ot.ynycHJy8nOXMXEu",
+      "passwordHash": "$2b$10$sioGqUDZrNKQ/qhPFQalPOD/bX4f2wFUSldIANlmprWDfeCU94NNe",
       "role": "SUPER_ADMIN",
       "createdAt": "2026-08-21T21:07:32.409Z",
-      "updatedAt": "2026-08-21T21:08:17.485Z"
+      "updatedAt": "2026-08-25T20:44:34.275Z"
+    },
+    {
+      "id": "usr-admin-03",
+      "name": "Precious Okonkwo",
+      "email": "preciousokonkwo@gmail.com",
+      "phone": "09017311644",
+      "passwordHash": "$2b$10$X/An6tx.XpV6iMohoXrukOu1LvZT8S1FEYHLWO1avV6dGHmvyXiqS",
+      "role": "SUPER_ADMIN",
+      "createdAt": "2026-08-23T08:04:00.000Z",
+      "updatedAt": "2026-08-23T08:04:29.263Z"
     }
   ],
   "competitions": [
@@ -41,54 +51,28 @@
     {
       "id": "cand-01",
       "competitionId": "comp-chc-benin-01",
-      "name": "Amarachi Akunne",
-      "slug": "amarachi-akunne",
-      "state": "Imo State",
-      "biography": "Vibrant youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Committed to praise ministry, youth fellowship, and ambassadorial excellence representing Imo State.",
+      "name": "Bro David Okolo",
+      "slug": "bro-david-okolo",
+      "state": "Edo Contestant",
+      "biography": "Dedicated youth member and passionate choir chorister at Christ Holy Church International No. 2 Benin. Committed to music ministry, spiritual growth, and ambassadorial excellence representing Edo Contestant.",
       "image": "",
       "status": "ACTIVE",
       "sortOrder": 1,
-      "createdAt": "2026-08-21T14:32:09.193Z",
-      "updatedAt": "2026-08-21T14:32:09.193Z"
+      "createdAt": "2026-08-25T20:40:00.000Z",
+      "updatedAt": "2026-08-25T20:40:00.000Z"
     },
     {
       "id": "cand-02",
       "competitionId": "comp-chc-benin-01",
-      "name": "David Okolo",
-      "slug": "david-okolo",
-      "state": "Edo State",
-      "biography": "Active youth member and passionate choir chorister at Christ Holy Church International No. 2 Benin. Dedicated to music ministry, youth leadership, and spiritual growth representing Edo State.",
+      "name": "Bro Chiagozie Okafor",
+      "slug": "bro-chiagozie-okafor",
+      "state": "Yoruba Contestant",
+      "biography": "Dynamic youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Passionate about music evangelism, youth development, and ambassadorial service representing Yoruba Contestant.",
       "image": "",
       "status": "ACTIVE",
       "sortOrder": 2,
-      "createdAt": "2026-08-21T14:32:09.193Z",
-      "updatedAt": "2026-08-21T14:32:09.193Z"
-    },
-    {
-      "id": "cand-03",
-      "competitionId": "comp-chc-benin-01",
-      "name": "Onyinyechi Chilokwu",
-      "slug": "onyinyechi-chilokwu",
-      "state": "Anambra State",
-      "biography": "Devoted youth member and inspiring choir chorister at Christ Holy Church International No. 2 Benin. Committed to worship ministry, church advancement, and godly values representing Anambra State.",
-      "image": "",
-      "status": "ACTIVE",
-      "sortOrder": 3,
-      "createdAt": "2026-08-21T14:32:09.193Z",
-      "updatedAt": "2026-08-21T14:32:09.193Z"
-    },
-    {
-      "id": "cand-04",
-      "competitionId": "comp-chc-benin-01",
-      "name": "Chiagozie Okafor",
-      "slug": "chiagozie-okafor",
-      "state": "Enugu State",
-      "biography": "Dynamic youth member and dedicated choir chorister at Christ Holy Church International No. 2 Benin. Passionate about music evangelism, youth development, and service representing Enugu State.",
-      "image": "",
-      "status": "ACTIVE",
-      "sortOrder": 4,
-      "createdAt": "2026-08-21T14:32:09.193Z",
-      "updatedAt": "2026-08-21T14:32:09.193Z"
+      "createdAt": "2026-08-25T20:40:00.000Z",
+      "updatedAt": "2026-08-25T20:40:00.000Z"
     }
   ],
   "voting_transactions": [],
@@ -419,6 +403,92 @@
         "votesDeducted": 0
       },
       "createdAt": "2026-08-21T21:00:22.018Z"
+    },
+    {
+      "id": "log-1787347948900-85f761",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787347904516-ac50fb",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-4B718E2A",
+        "voterName": "",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 10,
+        "expectedAmount": 500,
+        "candidateId": "cand-03",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-21T21:32:28.900Z"
+    },
+    {
+      "id": "log-1787347965530-512ae4",
+      "actorUserId": "usr-admin-01",
+      "actorName": "Executive Admin",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787347901834-623807",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-9EF18B15",
+        "voterName": "",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 10,
+        "expectedAmount": 500,
+        "candidateId": "cand-03",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-21T21:32:45.530Z"
+    },
+    {
+      "id": "log-1787690457807-455165",
+      "actorUserId": "usr-admin-03",
+      "actorName": "Precious Okonkwo",
+      "action": "TRANSACTION_DELETED",
+      "entityType": "TRANSACTION",
+      "entityId": "tx-1787690454918-717779",
+      "previousValue": "PENDING",
+      "newValue": "DELETED",
+      "metadata": {
+        "paymentReference": "VOTE-4933A1C3",
+        "voterName": "Test Voter",
+        "voterEmail": "",
+        "voterPhone": "",
+        "statusBeforeDeletion": "PENDING",
+        "voteQuantity": 10,
+        "expectedAmount": 500,
+        "candidateId": "cand-01",
+        "votesDeducted": 0
+      },
+      "createdAt": "2026-08-25T20:40:57.807Z"
+    },
+    {
+      "id": "log-1787690689015-5be298",
+      "actorUserId": "usr-admin-03",
+      "actorName": "Precious Okonkwo",
+      "action": "CANDIDATE_CREATED",
+      "entityType": "CANDIDATE",
+      "entityId": "cand-1787690689015-623a",
+      "newValue": "{\"id\":\"cand-1787690689015-623a\",\"competitionId\":\"comp-chc-benin-01\",\"name\":\"Sis Miracle James\",\"slug\":\"sis-miracle-james\",\"state\":\"Delta State\",\"biography\":\"Passionate praise leader and youth ambassador.\",\"image\":\"\",\"status\":\"ACTIVE\",\"sortOrder\":3,\"createdAt\":\"2026-08-25T20:44:49.015Z\",\"updatedAt\":\"2026-08-25T20:44:49.015Z\"}",
+      "createdAt": "2026-08-25T20:44:49.015Z"
+    },
+    {
+      "id": "log-1787690689019-cc62f9",
+      "actorUserId": "usr-admin-03",
+      "actorName": "Precious Okonkwo",
+      "action": "CANDIDATE_DELETED",
+      "entityType": "CANDIDATE",
+      "entityId": "cand-1787690689015-623a",
+      "previousValue": "{\"id\":\"cand-1787690689015-623a\",\"competitionId\":\"comp-chc-benin-01\",\"name\":\"Sis Miracle James\",\"slug\":\"sis-miracle-james\",\"state\":\"Delta State\",\"biography\":\"Passionate praise leader and youth ambassador.\",\"image\":\"\",\"status\":\"ACTIVE\",\"sortOrder\":3,\"createdAt\":\"2026-08-25T20:44:49.015Z\",\"updatedAt\":\"2026-08-25T20:44:49.015Z\"}",
+      "createdAt": "2026-08-25T20:44:49.019Z"
     }
   ]
 }
